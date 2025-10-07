@@ -18,6 +18,8 @@ The **XGBoost model** achieved the best performance and was selected for deploym
 ## GitHub Repository
 https://github.com/m-mwangi/UzaziSafe
 
+## Demo Video
+
 ## Environment Setup and Project Installation
 
 Follow these steps to set up and run the project locally:
