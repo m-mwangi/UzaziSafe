@@ -48,3 +48,7 @@ You’ll see an interactive Swagger UI where you can test the prediction endpoin
   "Low_Risk_Probability": 0.13
 }
 ```
+
+### Future Deployment
+- Containerize the app using Docker.
+- Deploy on Render.
