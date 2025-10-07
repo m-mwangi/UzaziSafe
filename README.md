@@ -19,6 +19,7 @@ The **XGBoost model** achieved the best performance and was selected for deploym
 https://github.com/m-mwangi/UzaziSafe
 
 ## Demo Video
+https://youtu.be/Gr6Ser0_pT0
 
 ## Environment Setup and Project Installation
 
