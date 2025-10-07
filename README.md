@@ -15,8 +15,6 @@ This project is an ML-powered maternal health prediction system that classifies 
 The solution integrates a Machine Learning pipeline (data preprocessing → model training → evaluation → deployment) and serves predictions in real time through a FastAPI application.  
 The **XGBoost model** achieved the best performance and was selected for deployment.
 
----
-
 ## GitHub Repository
 https://github.com/m-mwangi/UzaziSafe
 
@@ -27,3 +25,9 @@ Follow these steps to set up and run the project locally:
 ### Clone the Repository
 ```bash
 git clone https://github.com/m-mwangi/UzaziSafe.git
+```
+
+### Run the FastAPI App
+```bash
+uvicorn app:app --reload
+```
