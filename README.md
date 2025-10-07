@@ -31,8 +31,20 @@ git clone https://github.com/m-mwangi/UzaziSafe.git
 ```bash
 uvicorn app:app --reload
 ```
-
 Once running, open:
 http://127.0.0.1:8000/docs
 
 You’ll see an interactive Swagger UI where you can test the prediction endpoint with patient data.
+
+## Deployment Plan
+- Local deployment using FastAPI and Uvicorn.
+- Model file (xgboost_model.pkl) is loaded for predictions.
+- The API accepts clinical input parameters and returns:
+
+```
+{
+  "Prediction": "High Risk",
+  "High_Risk_Probability": 0.87,
+  "Low_Risk_Probability": 0.13
+}
+```
