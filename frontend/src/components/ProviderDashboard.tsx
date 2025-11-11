@@ -39,7 +39,7 @@ export function ProviderDashboard({ onLogout }: ProviderDashboardProps) {
     email: "",
   });
 
-  // ✅ Load provider info immediately from localStorage (instant display)
+  // Load provider info immediately from localStorage (instant display)
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -54,14 +54,14 @@ export function ProviderDashboard({ onLogout }: ProviderDashboardProps) {
     }
   }, []);
 
-  // ✅ Fetch provider info from backend (live refresh)
+  // Fetch provider info from backend (live refresh)
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
     const fetchProvider = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/providers/me", {
+        const res = await fetch("https://uzazisafe-backend.onrender.com/providers/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -83,13 +83,13 @@ export function ProviderDashboard({ onLogout }: ProviderDashboardProps) {
     fetchProvider();
   }, []);
 
-  // ✅ NEW: Ensure provider_id and full info are stored in localStorage
+  // Ensure provider_id and full info are stored in localStorage
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("user") || "null");
     const token = stored?.access_token || localStorage.getItem("token");
 
     if (stored?.is_provider && token) {
-      fetch("http://127.0.0.1:8000/providers/me", {
+      fetch("https://uzazisafe-backend.onrender.com/providers/me", {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => {
@@ -99,7 +99,7 @@ export function ProviderDashboard({ onLogout }: ProviderDashboardProps) {
         .then((data) => {
           const updatedUser = { ...stored, ...data };
           localStorage.setItem("user", JSON.stringify(updatedUser));
-          console.log("✅ Provider profile updated with provider_id:", updatedUser);
+          console.log("Provider profile updated with provider_id:", updatedUser);
         })
         .catch((err) =>
           console.error("Error refreshing provider info:", err.message)
@@ -107,7 +107,7 @@ export function ProviderDashboard({ onLogout }: ProviderDashboardProps) {
     }
   }, []);
 
-  // ✅ Optional: Listen for login events to auto-refresh provider info
+  // Listen for login events to auto-refresh provider info
   useEffect(() => {
     const refreshOnLogin = () => {
       const storedUser = localStorage.getItem("user");
@@ -133,13 +133,13 @@ export function ProviderDashboard({ onLogout }: ProviderDashboardProps) {
     { id: "analytics", label: "Analytics", icon: TrendingUp },
   ];
 
-  // 🧠 Load recent activities
+  // Load recent activities
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("activityLog") || "[]");
     setActivities(saved);
   }, []);
 
-  // 🔄 Sync activities in real-time
+  // Sync activities in real-time
   useEffect(() => {
     const syncActivities = () => {
       const updated = JSON.parse(localStorage.getItem("activityLog") || "[]");
@@ -222,7 +222,7 @@ export function ProviderDashboard({ onLogout }: ProviderDashboardProps) {
             </button>
           ))}
 
-          {/* ✅ Sign Out Button */}
+          {/* Sign Out Button */}
           <Button
             variant="outline"
             onClick={() => {
