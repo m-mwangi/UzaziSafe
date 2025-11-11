@@ -26,9 +26,9 @@ app = FastAPI(
 # CORS Settings
 # ==========================================================
 origins = [
-    "http://localhost:5173",  # Vite frontend
-    "http://localhost:3000",  # CRA frontend
-    "*"                       # Allow all for testing
+    "http://localhost:5173",  # Local Vite frontend
+    "http://localhost:3000",  # Local CRA frontend
+    "https://uzazisafe-frontend.onrender.com",  # Deployed frontend (Render)
 ]
 
 app.add_middleware(
