@@ -11,7 +11,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const base =
       "inline-flex items-center justify-center rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition";
 
-    // ✅ keep your colors and shadows intact
+    // keep your colors and shadows intact
     const variants = {
       default:
         "bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500",
@@ -21,7 +21,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         "bg-transparent text-indigo-700 hover:bg-indigo-100 focus:ring-indigo-500",
     };
 
-    // ✅ size control (used by some components like “size='sm'”)
+    // size control (used by some components like “size='sm'”)
     const sizes = {
       sm: "text-sm px-3 py-1.5",
       md: "text-sm px-4 py-2",
