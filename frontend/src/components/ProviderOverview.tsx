@@ -7,24 +7,24 @@ function ProviderOverview({ provider }: { provider: any }) {
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
 
-  // ✅ State for backend stats
+  // State for backend stats
   const [stats, setStats] = useState({
     total_patients: 0,
     high_risk_patients: 0,
     scheduled_appointments: 0,
   });
 
-  // ✅ State for daily appointments and activities
+  // State for daily appointments and activities
   const [todaysAppointments, setTodaysAppointments] = useState<any[]>([]);
   const [activities, setActivities] = useState<any[]>([]);
 
-  // 🧠 Fetch provider stats from backend
+  // Fetch provider stats from backend
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     const fetchProviderStats = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/providers/me", {
+        const res = await fetch("https://uzazisafe-backend.onrender.com/providers/me", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,20 +44,20 @@ function ProviderOverview({ provider }: { provider: any }) {
     fetchProviderStats();
   }, [provider]);
 
-  // ✅ Fetch today's appointments
+  // Fetch today's appointments
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     const fetchTodaysAppointments = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/providers/me", {
+        const res = await fetch("https://uzazisafe-backend.onrender.com/providers/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Failed to fetch provider info");
         const providerData = await res.json();
 
         const res2 = await fetch(
-          `http://127.0.0.1:8000/appointments/provider/${providerData.email}`,
+          `https://uzazisafe-backend.onrender.com/appointments/provider/${providerData.email}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         if (!res2.ok) throw new Error("Failed to fetch appointments");
@@ -84,20 +84,20 @@ function ProviderOverview({ provider }: { provider: any }) {
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ Fetch recent activity from backend
+  // Fetch recent activity from backend
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     const fetchRecentActivity = async () => {
       try {
-        // 1️⃣ Get provider info first
-        const res = await fetch("http://127.0.0.1:8000/providers/me", {
+        // Get provider info first
+        const res = await fetch("https://uzazisafe-backend.onrender.com/providers/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Failed to fetch provider info");
         const providerData = await res.json();
 
-        // 2️⃣ Fetch recent activity for provider
+        // Fetch recent activity for provider
         const res2 = await fetch(
           `http://127.0.0.1:8000/providers/${providerData.provider_id}/activity`,
           { headers: { Authorization: `Bearer ${token}` } }
@@ -119,7 +119,7 @@ function ProviderOverview({ provider }: { provider: any }) {
   // Scroll animation for sticky header shadow
   useMotionValueEvent(scrollY, "change", (latest) => setScrolled(latest > 60));
 
-  // ✅ Cards pulling data directly from backend
+  // Cards pulling data directly from backend
   const statCards = [
     {
       title: "Total Patients",
