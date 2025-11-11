@@ -31,7 +31,7 @@ export function AppointmentsDashboard({
   const [newDate, setNewDate] = useState("");
   const [newTime, setNewTime] = useState("");
 
-  // ✅ Fetch appointments from backend
+  // Fetch appointments from backend
   const loadAppointments = async () => {
     try {
       setLoading(true);
@@ -41,7 +41,7 @@ export function AppointmentsDashboard({
       if (!token) throw new Error("No access token found.");
 
       const res = await fetch(
-        `http://127.0.0.1:8000/appointments/patient/${userEmail}`,
+        `https://uzazisafe-backend.onrender.com/appointments/patient/${userEmail}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ export function AppointmentsDashboard({
       const formatted: Appointment[] = data.map((a: any) => {
         const dateObj = new Date(a.date);
 
-        // ✅ FIXED: display in local timezone instead of UTC
+        // FIXED: display in local timezone instead of UTC
         const localDate = dateObj.toLocaleDateString("en-GB", {
           year: "numeric",
           month: "2-digit",
@@ -95,14 +95,14 @@ export function AppointmentsDashboard({
     if (userEmail) loadAppointments();
   }, [userEmail]);
 
-  // ✅ Mark appointment as completed (persist to backend)
+  // Mark appointment as completed (persist to backend)
   const markCompleted = async (id: number) => {
     try {
       const token = localStorage.getItem("access_token");
       if (!token) throw new Error("No token found");
 
       const res = await fetch(
-        `http://127.0.0.1:8000/appointments/${id}/status`,
+        `https://uzazisafe-backend.onrender.com/appointments/${id}/status`,
         {
           method: "PUT",
           headers: {
@@ -118,7 +118,7 @@ export function AppointmentsDashboard({
       setAppointments((prev) =>
         prev.map((a) => (a.id === id ? { ...a, status: "completed" } : a))
       );
-      setConfirmation("✅ Appointment marked as completed.");
+      setConfirmation("Appointment marked as completed.");
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Unable to mark appointment as done.");
@@ -127,7 +127,7 @@ export function AppointmentsDashboard({
     }
   };
 
-  // ❌ Cancel appointment (persist to backend)
+  // Cancel appointment (persist to backend)
   const cancelAppointment = async (id: number) => {
     if (!window.confirm("Are you sure you want to cancel this appointment?"))
       return;
@@ -137,7 +137,7 @@ export function AppointmentsDashboard({
       if (!token) throw new Error("No token found");
 
       const res = await fetch(
-        `http://127.0.0.1:8000/appointments/${id}/status`,
+        `https://uzazisafe-backend.onrender.com/appointments/${id}/status`,
         {
           method: "PUT",
           headers: {
@@ -151,7 +151,7 @@ export function AppointmentsDashboard({
       if (!res.ok) throw new Error("Failed to cancel appointment.");
 
       setAppointments((prev) => prev.filter((a) => a.id !== id));
-      setConfirmation("❌ Appointment cancelled successfully.");
+      setConfirmation("Appointment cancelled successfully.");
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Unable to cancel appointment.");
@@ -160,7 +160,7 @@ export function AppointmentsDashboard({
     }
   };
 
-  // 🔁 Reschedule (frontend-only)
+  // Reschedule (frontend-only)
   const startReschedule = (id: number, date: string, time: string) => {
     setReschedulingId(id);
     setNewDate(date);
@@ -173,12 +173,12 @@ export function AppointmentsDashboard({
         a.id === id ? { ...a, date: newDate, time: newTime } : a
       )
     );
-    setConfirmation("🔁 Appointment rescheduled successfully.");
+    setConfirmation("Appointment rescheduled successfully.");
     setTimeout(() => setConfirmation(""), 2500);
     setReschedulingId(null);
   };
 
-  // ✅ Categorize appointments
+  // Categorize appointments
   const upcoming = appointments.filter((a) => a.status === "upcoming");
   const completed = appointments.filter((a) => a.status === "completed");
 
@@ -199,7 +199,7 @@ export function AppointmentsDashboard({
             onClick={loadAppointments}
             className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm"
           >
-            🔄 Refresh
+            Refresh
           </Button>
         </div>
 
