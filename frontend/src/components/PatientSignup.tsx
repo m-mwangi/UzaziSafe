@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { ArrowLeft } from "lucide-react";
 
-// ✅ Shared hospital list (same as in ProviderSignup)
+// Shared hospital list (same as in ProviderSignup)
 const facilities = [
   "Aga Khan Hospital",
   "Nairobi Women's Hospital",
@@ -39,7 +39,7 @@ export function PatientSignup({ onBack }: PatientSignupProps) {
     setSuccess("");
   };
 
-  // ✅ Fixed handleSubmit with better error handling
+  // Fixed handleSubmit with better error handling
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -56,7 +56,7 @@ export function PatientSignup({ onBack }: PatientSignupProps) {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/signup/patient", {
+      const response = await fetch("https://uzazisafe-backend.onrender.com/auth/signup/patient", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
@@ -93,8 +93,8 @@ export function PatientSignup({ onBack }: PatientSignupProps) {
         }`
       );
 
-      // ✅ Redirect back to login after 3 seconds
-      setTimeout(() => onBack(), 3000);
+      // Redirect back to login after 2 seconds
+      setTimeout(() => onBack(), 2000);
     } catch (error: any) {
       setError(error.message || "Something went wrong during signup.");
     }
