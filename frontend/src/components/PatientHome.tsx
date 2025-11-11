@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
-// 🔹 Reusable component for label/value layout
+// Reusable component for label/value layout
 function InfoCard({
   title,
   value,
@@ -44,7 +44,7 @@ export function PatientHome({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // ✅ Risk color logic
+  // Risk color logic
   const riskLevel = (user?.current_risk_level || "").toLowerCase();
 
 const riskColor =
@@ -54,7 +54,7 @@ const riskColor =
     ? "text-green-700 bg-green-100 border border-green-200"
     : "text-gray-700 bg-gray-100 border border-gray-200";
 
-  // ✅ Handle booking
+  // Handle booking
   const handleBookAppointment = async () => {
     if (!appointmentDate || !appointmentTime) {
       setError("Please choose both date and time.");
@@ -76,13 +76,13 @@ const riskColor =
         date: combinedDateTime,
         appointment_type: reason.trim() || "Consultation",
         provider_id: user.provider_id,
-        provider_email: user.provider_email, // ✅ Added this line
+        provider_email: user.provider_email, // Added this line
         provider_name: user.provider_name,
         status: "Scheduled",
         hospital_name: user?.hospital_name || "",
       };
 
-      const res = await fetch("http://127.0.0.1:8000/appointments/book", {
+      const res = await fetch("https://uzazisafe-backend.onrender.com/appointments/book", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -94,9 +94,9 @@ const riskColor =
       if (!res.ok) throw new Error(`Failed to book appointment (${res.status})`);
 
       const data = await res.json();
-      console.log("✅ Appointment booked successfully:", data);
+      console.log("Appointment booked successfully:", data);
 
-      const formattedMessage = `✅ Appointment booked with ${
+      const formattedMessage = `Appointment booked with ${
         user.provider_name || "your doctor"
       } at ${user.hospital_name || "your facility"} on ${appointmentDate} at ${appointmentTime}.`;
 
@@ -113,7 +113,7 @@ const riskColor =
     }
   };
 
-  // ✅ Format next appointment neatly
+  // Format next appointment neatly
   const nextAppointmentDisplay = user?.next_appointment
     ? (() => {
         const d = new Date(user.next_appointment);
@@ -350,4 +350,3 @@ const riskColor =
     </motion.div>
   );
 }
-
