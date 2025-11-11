@@ -11,3 +11,4 @@ shap
 pandas
 numpy
 scikit-learn
+pydantic[email]
