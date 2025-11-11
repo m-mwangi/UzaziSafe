@@ -3,7 +3,8 @@ uvicorn[standard]
 sqlalchemy
 pydantic
 python-dotenv
-passlib[bcrypt]
+passlib[bcrypt] == 1.7.4
+bcrypt == 4.0.1
 python-jose[cryptography]
 psycopg2-binary
 joblib
@@ -14,3 +15,4 @@ scikit-learn
 pydantic[email]
 python-multipart
 xgboost
+email-validator
