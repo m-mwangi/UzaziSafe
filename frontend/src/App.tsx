@@ -13,7 +13,7 @@ function App() {
   >("landing");
   const [user, setUser] = useState<any>(null);
 
-  // ✅ Load session on startup
+  // Load session on startup
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -23,7 +23,7 @@ function App() {
     }
   }, []);
 
-  // ✅ Handle login & navigation
+  // Handle login & navigation
   const handleLogin = (
     type: "patient" | "provider" | "createPatient" | "createProvider"
   ) => {
@@ -43,7 +43,7 @@ function App() {
     }
   };
 
-  // ✅ Handle logout
+  // Handle logout
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -51,7 +51,7 @@ function App() {
     setPage("landing");
   };
 
-  // ✅ Keep Tooltip + Router wrapper
+  // Keep Tooltip + Router wrapper
   return (
     <Tooltip.Provider delayDuration={150} skipDelayDuration={300}>
       <BrowserRouter>
@@ -74,4 +74,3 @@ function App() {
 }
 
 export default App;
-
