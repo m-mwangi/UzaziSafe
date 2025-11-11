@@ -169,7 +169,7 @@ export function LandingPage({ onLogin }: LandingPageProps) {
               <p className="text-lg text-gray-700">
                 UzaziSafe empowers mothers and healthcare providers through
                 personalized insights, timely health tracking, and access to
-                trusted care — ensuring safer journeys from pregnancy to
+                trusted care - ensuring safer journeys from pregnancy to
                 motherhood.
               </p>
 
