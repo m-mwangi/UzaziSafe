@@ -99,7 +99,7 @@ function ProviderOverview({ provider }: { provider: any }) {
 
         // Fetch recent activity for provider
         const res2 = await fetch(
-          `http://127.0.0.1:8000/providers/${providerData.provider_id}/activity`,
+          `https://uzazisafe-backend.onrender.com/providers/${providerData.provider_id}/activity`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         if (!res2.ok) throw new Error("Failed to fetch provider activity");
