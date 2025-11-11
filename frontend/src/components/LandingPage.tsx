@@ -32,13 +32,13 @@ export function LandingPage({ onLogin }: LandingPageProps) {
   const [providerPassword, setProviderPassword] = useState("");
   const [providerError, setProviderError] = useState("");
 
-  // ✅ Handle patient login (FastAPI)
+  // Handle patient login (FastAPI)
   const handlePatientLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setPatientError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/login", {
+      const response = await fetch("https://uzazisafe-backend.onrender.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -60,13 +60,13 @@ export function LandingPage({ onLogin }: LandingPageProps) {
 
       const data = await response.json();
 
-      // ✅ Clear legacy keys
+      // Clear legacy keys
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("loggedInProvider");
       localStorage.removeItem("appointments");
       localStorage.removeItem("riskHistory");
 
-      // ✅ Use unified keys so App.tsx can read session
+      // Use unified keys so App.tsx can read session
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("user", JSON.stringify(data));
 
@@ -74,18 +74,18 @@ export function LandingPage({ onLogin }: LandingPageProps) {
       onLogin(data.is_provider ? "provider" : "patient");
     } catch (error: any) {
       setPatientError(
-        error.message || "Login failed — please check your credentials."
+        error.message || "Login failed - please check your credentials."
       );
     }
   };
 
-  // ✅ Handle provider login (FastAPI)
+  // Handle provider login (FastAPI)
   const handleProviderLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setProviderError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/login", {
+      const response = await fetch("https://uzazisafe-backend.onrender.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -107,7 +107,7 @@ export function LandingPage({ onLogin }: LandingPageProps) {
 
       const data = await response.json();
 
-      // ✅ Normalized shape for consistency
+      // Normalized shape for consistency
       const normalized = {
         full_name: data.full_name || "Unknown Provider",
         email: data.email,
@@ -116,21 +116,21 @@ export function LandingPage({ onLogin }: LandingPageProps) {
         hospital_name: data.hospital_name || "",
       };
 
-      // ✅ Clear legacy keys
+      // Clear legacy keys
       localStorage.removeItem("loggedInUser");
       localStorage.removeItem("loggedInProvider");
       localStorage.removeItem("appointments");
       localStorage.removeItem("patients");
       localStorage.removeItem("riskHistory");
 
-      // ✅ Save unified keys
+      // Save unified keys
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("user", JSON.stringify(normalized));
 
       onLogin("provider");
     } catch (error: any) {
       setProviderError(
-        error.message || "Login failed — please check your credentials."
+        error.message || "Login failed - please check your credentials."
       );
     }
   };
