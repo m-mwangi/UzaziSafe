@@ -51,7 +51,7 @@ async function predictRisk(data: HealthData): Promise<any> {
       Gestational_Diabetes: data.gestational_diabetes,
     };
 
-    const response = await fetch("http://127.0.0.1:8000/assess-risk", {
+    const response = await fetch("https://uzazisafe-backend.onrender.com/assess-risk", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ async function predictRisk(data: HealthData): Promise<any> {
     return await response.json();
   } catch (error) {
     console.error("Prediction request failed:", error);
-    alert("Prediction failed — please make sure your FastAPI backend is running.");
+    alert("Prediction failed - please make sure your FastAPI backend is running.");
     return null;
   }
 }
@@ -90,7 +90,7 @@ export function PatientDashboard({ onLogout, user }: PatientDashboardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [existingPatient, setExistingPatient] = useState<boolean>(false);
 
-  // ✅ Fetch patient data from backend
+  // Fetch patient data from backend
   useEffect(() => {
     const fetchPatientData = async () => {
       const token = localStorage.getItem("token");
@@ -100,7 +100,7 @@ export function PatientDashboard({ onLogout, user }: PatientDashboardProps) {
       }
 
       try {
-        const res = await fetch("http://127.0.0.1:8000/patients/me", {
+        const res = await fetch("https://uzazisafe-backend.onrender.com/patients/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -108,7 +108,7 @@ export function PatientDashboard({ onLogout, user }: PatientDashboardProps) {
         const data = await res.json();
         setPatientData(data);
       } catch (err) {
-        console.error("❌ Error fetching patient data:", err);
+        console.error("Error fetching patient data:", err);
       } finally {
         setLoadingPatient(false);
       }
@@ -117,7 +117,7 @@ export function PatientDashboard({ onLogout, user }: PatientDashboardProps) {
     fetchPatientData();
   }, []);
 
-  // ✅ Auto-fill static data from backend (and normalize Yes/No)
+  // Auto-fill static data from backend (and normalize Yes/No)
   useEffect(() => {
     if (patientData) {
       const normalize = (val: string | null | undefined) => {
@@ -198,11 +198,11 @@ export function PatientDashboard({ onLogout, user }: PatientDashboardProps) {
 
       setHistoryUpdated((prev) => prev + 1);
     }
-// ✅ Save static info after first prediction
+// Save static info after first prediction
 if (!existingPatient) {
   try {
     const token = localStorage.getItem("token");
-    await fetch("http://127.0.0.1:8000/patients/update-static-info", {
+    await fetch("https://uzazisafe-backend.onrender.com/patients/update-static-info", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -250,7 +250,7 @@ if (!existingPatient) {
           </p>
         </div>
 
-        {/* ✅ User info */}
+        {/* User info */}
         <div className="px-6 py-4 border-b border-indigo-500/30 flex items-center gap-3 bg-blue-600/20">
           <User className="w-5 h-5 text-indigo-200" />
           <div>
