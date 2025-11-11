@@ -48,7 +48,7 @@ export function LandingPage({ onLogin }: LandingPageProps) {
       });
 
       if (!response.ok) {
-        let errMsg = "Login failed — please check your credentials.";
+        let errMsg = "Login failed - please check your credentials.";
         try {
           const err = await response.json();
           errMsg = err.detail || JSON.stringify(err);
@@ -95,7 +95,7 @@ export function LandingPage({ onLogin }: LandingPageProps) {
       });
 
       if (!response.ok) {
-        let errMsg = "Login failed — please check your credentials.";
+        let errMsg = "Login failed - please check your credentials.";
         try {
           const err = await response.json();
           errMsg = err.detail || JSON.stringify(err);
