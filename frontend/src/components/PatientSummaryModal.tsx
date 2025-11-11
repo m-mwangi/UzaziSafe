@@ -74,7 +74,7 @@ export const PatientSummaryModal: React.FC<{
       try {
         setLoading(true);
         const res = await fetch(
-          `http://127.0.0.1:8000/patients/${patient.id}/latest-risk`,
+          `https://uzazisafe-backend.onrender.com/patients/${patient.id}/latest-risk`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -100,35 +100,35 @@ export const PatientSummaryModal: React.FC<{
     switch (feature) {
       case "Systolic BP":
         if (value > 140)
-          return { text: "High BP — monitor for preeclampsia.", level: "attention" };
+          return { text: "High BP - monitor for preeclampsia.", level: "attention" };
         if (value < 90)
-          return { text: "Low BP — assess hydration and anemia.", level: "monitor" };
+          return { text: "Low BP - assess hydration and anemia.", level: "monitor" };
         return { text: "Stable systolic pressure.", level: "normal" };
       case "Diastolic BP":
         if (value > 90)
-          return { text: "Raised diastolic BP — monitor closely.", level: "attention" };
+          return { text: "Raised diastolic BP - monitor closely.", level: "attention" };
         if (value < 60)
-          return { text: "Low diastolic — ensure hydration.", level: "monitor" };
+          return { text: "Low diastolic - ensure hydration.", level: "monitor" };
         return { text: "Diastolic pressure normal.", level: "normal" };
       case "Blood Sugar":
         if (value > 7.8)
           return {
-            text: "Elevated sugar — manage gestational diabetes risk.",
+            text: "Elevated sugar - manage gestational diabetes risk.",
             level: "attention",
           };
         if (value < 3.5)
-          return { text: "Low sugar — possible hypoglycemia.", level: "monitor" };
+          return { text: "Low sugar - possible hypoglycemia.", level: "monitor" };
         return { text: "Blood sugar within range.", level: "normal" };
       case "Body Temperature":
         if (value > 99.5)
-          return { text: "Slight fever — rule out infection.", level: "attention" };
+          return { text: "Slight fever - rule out infection.", level: "attention" };
         if (value < 97)
-          return { text: "Below normal — monitor.", level: "monitor" };
+          return { text: "Below normal - monitor.", level: "monitor" };
         return { text: "Temperature normal.", level: "normal" };
       case "Heart Rate":
         if (value > 100)
           return {
-            text: "Tachycardia — check for anxiety or fever.",
+            text: "Tachycardia - check for anxiety or fever.",
             level: "attention",
           };
         if (value < 60)
@@ -310,5 +310,3 @@ export const PatientSummaryModal: React.FC<{
 };
 
 export default PatientSummaryModal;
-
-
