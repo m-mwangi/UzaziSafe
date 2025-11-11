@@ -27,8 +27,8 @@ import {
   CheckCircle,
 } from "lucide-react";
 
-// ✅ CRA uses process.env.REACT_APP_*
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+// CRA uses process.env.REACT_APP_*
+const API_URL = process.env.REACT_APP_API_URL || "https://uzazisafe-backend.onrender.com";
 
 // ✅ Always return clean headers object
 const authHeaders = (): Record<string, string> => {
@@ -63,18 +63,18 @@ export function ProviderAnalytics() {
 
   const COLORS = ["#4ade80", "#f87171"]; // green, red
 
-  // ✅ Fetch real data from backend
+  // Fetch real data from backend
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 1️⃣ Get logged-in provider
+        // Get logged-in provider
         const meRes = await fetch(`${API_URL}/providers/me`, {
           headers: authHeaders(),
         });
         if (!meRes.ok) throw new Error("Failed to load provider info");
         const meData = await meRes.json();
 
-        // 2️⃣ Get provider's risk summary
+        // Get provider's risk summary
         const riskRes = await fetch(
           `${API_URL}/providers/${meData.provider_id}/risk-summary`,
           { headers: authHeaders() }
@@ -83,7 +83,7 @@ export function ProviderAnalytics() {
 
         const riskData = await riskRes.json();
 
-        // 🗓️ Format weekly chart data
+        // Format weekly chart data
         const formatted = riskData.weekly.map((r: any) => ({
           date: new Date(r.date).toLocaleDateString(),
           avgScore: r.avg_high_prob ?? 0,
@@ -91,7 +91,7 @@ export function ProviderAnalytics() {
 
         setWeeklyChart(formatted);
 
-        // 🧮 Compute summary stats
+        // Compute summary stats
         const total = riskData.total_assessments ?? 0;
         const high = riskData.high_risk_count ?? 0;
         const low = riskData.low_risk_count ?? 0;
@@ -99,13 +99,13 @@ export function ProviderAnalytics() {
 
         setSummary({ total, high, low, avgRisk });
 
-        // 🥧 Pie data
+        // Pie data
         setPieData([
           { name: "Low Risk", value: low },
           { name: "High Risk", value: high },
         ]);
 
-        // 📊 Volume data
+        // Volume data
         const volume = riskData.weekly.map((r: any) => ({
           date: new Date(r.date).toLocaleDateString(),
           count: r.assessment_count ?? 0,
@@ -120,7 +120,7 @@ export function ProviderAnalytics() {
     fetchData();
   }, []);
 
-  // ✅ Compute Insights dynamically based on actual data
+  // Compute Insights dynamically based on actual data
   useEffect(() => {
     const newInsights: any[] = [];
 
@@ -164,7 +164,7 @@ export function ProviderAnalytics() {
           riskChange * 100
         ).toFixed(
           1
-        )}% over recent days — this may indicate effective interventions.`,
+        )}% over recent days - this may indicate effective interventions.`,
         color: "green",
       });
     } else {
@@ -184,7 +184,7 @@ export function ProviderAnalytics() {
         title: "High-Risk Patients Majority",
         desc: `${(highRatio * 100).toFixed(
           1
-        )}% of patients are currently high risk — prioritize immediate follow-ups.`,
+        )}% of patients are currently high risk - prioritize immediate follow-ups.`,
         color: "red",
       });
     } else if (highRatio < 0.3) {
@@ -193,14 +193,14 @@ export function ProviderAnalytics() {
         title: "Mostly Low-Risk Patients",
         desc: `${((1 - highRatio) * 100).toFixed(
           1
-        )}% of patients are low risk — maintain preventive care strategies.`,
+        )}% of patients are low risk - maintain preventive care strategies.`,
         color: "green",
       });
     } else {
       newInsights.push({
         icon: <Activity className="text-yellow-500 w-5 h-5" />,
         title: "Balanced Risk Distribution",
-        desc: "Your patients show a mixed pattern of risk levels — monitor closely for potential shifts.",
+        desc: "Your patients show a mixed pattern of risk levels - monitor closely for potential shifts.",
         color: "yellow",
       });
     }
