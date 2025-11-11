@@ -28,7 +28,6 @@ app = FastAPI(
 origins = [
     "http://localhost:5173",  # Vite (local)
     "http://localhost:3000",  # CRA (local)
-    "https://uzazisafe-frontend.onrender.com",  # ✅ your deployed frontend
     "https://uzazisafe.onrender.com",           # ✅ your current frontend domain (from screenshot)
 ]
 
