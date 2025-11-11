@@ -37,7 +37,6 @@ export function ProviderSignup({ onBack }: ProviderSignupProps) {
     setSuccess("");
   };
 
-  // ✅ Fixed: better backend alignment and error display
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -54,7 +53,7 @@ export function ProviderSignup({ onBack }: ProviderSignupProps) {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/signup/provider", {
+      const response = await fetch("https://uzazisafe-backend.onrender.com/auth/signup/provider", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
@@ -80,7 +79,7 @@ export function ProviderSignup({ onBack }: ProviderSignupProps) {
 
       const data = await response.json();
       localStorage.setItem("user", JSON.stringify(data));
-      setSuccess(`✅ Provider account created successfully for ${formData.facility}!`);
+      setSuccess(`Provider account created successfully for ${formData.facility}!`);
 
       setTimeout(() => onBack(), 3000);
     } catch (error: any) {
