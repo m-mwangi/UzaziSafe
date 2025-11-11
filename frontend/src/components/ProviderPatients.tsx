@@ -13,7 +13,7 @@ import { Badge } from "./ui/badge";
 import { Trash2 } from "lucide-react";
 import PatientSummaryModal from "./PatientSummaryModal";
 
-// 🧭 Utility: readable date
+// Utility: readable date
 const formatDate = (iso?: string) => {
   if (!iso) return "Not recorded";
   try {
@@ -69,7 +69,7 @@ export function ProviderPatients() {
     return () => window.removeEventListener("storage", loadProvider);
   }, []);
 
-  // ✅ Load provider's patients from backend (by provider_id)
+  // Load provider's patients from backend (by provider_id)
   useEffect(() => {
     const fetchPatients = async () => {
       if (!provider || !provider.provider_id) return;
@@ -78,7 +78,7 @@ export function ProviderPatients() {
         if (!token) throw new Error("Missing authentication token");
 
         const res = await fetch(
-          `http://127.0.0.1:8000/providers/${provider.provider_id}/patients`,
+          `https://uzazisafe-backend.onrender.com/providers/${provider.provider_id}/patients`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -249,4 +249,3 @@ export function ProviderPatients() {
 }
 
 export default ProviderPatients;
-
