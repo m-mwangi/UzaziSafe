@@ -46,10 +46,10 @@ interface ChartPoint {
   prediction?: string;
 }
 
-// ✅ CRA uses process.env.REACT_APP_*
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+// CRA uses process.env.REACT_APP_*
+const API_URL = process.env.REACT_APP_API_URL || "https://uzazisafe-backend.onrender.com";
 
-// ✅ Always return clean headers object
+// Always return clean headers object
 const authHeaders = (): Record<string, string> => {
   const token = localStorage.getItem("token");
   const headers: Record<string, string> = {
@@ -71,14 +71,13 @@ export function RiskAnalyticsDashboard({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // ✅ Fetch history from API (replaces localStorage)
   useEffect(() => {
     const fetchHistory = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        // 1️⃣ Get logged-in patient details
+        // Get logged-in patient details
         const meRes = await fetch(`${API_URL}/patients/me`, {
           headers: authHeaders(),
         });
@@ -89,7 +88,7 @@ export function RiskAnalyticsDashboard({
         if (!patientId)
           throw new Error("No patient_id found in /patients/me response");
 
-        // 2️⃣ Get patient's risk history
+        // Get patient's risk history
         const riskRes = await fetch(
           `${API_URL}/assess-risk/patient/${patientId}`,
           { headers: authHeaders() }
@@ -126,7 +125,7 @@ export function RiskAnalyticsDashboard({
     fetchHistory();
   }, [refreshKey, userEmail]);
 
-  // ✅ Compute chart and stats
+  // Compute chart and stats
   useEffect(() => {
     if (historyData.length === 0) {
       setChartData([]);
@@ -205,7 +204,7 @@ export function RiskAnalyticsDashboard({
     }
   }, [viewMode, historyData]);
 
-  // ✅ Dot color logic
+  // Dot color logic
   const renderConditionalDot = (props: DotProps): React.ReactElement => {
     const { cx, cy, payload } = props as any;
     if (!cx || !cy || !payload) return <></>;
@@ -225,7 +224,7 @@ export function RiskAnalyticsDashboard({
     );
   };
 
-  // ✅ Custom tooltip
+  // Custom tooltip
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload?.length) {
       const item = payload[0].payload;
@@ -264,9 +263,9 @@ export function RiskAnalyticsDashboard({
           }}
         >
           {viewMode === "today" ? (
-            <div>🕒 {item.time}</div>
+            <div> {item.time}</div>
           ) : (
-            <div>📅 {item.date}</div>
+            <div> {item.date}</div>
           )}
           <div>
             Risk Probability: {(item.score * 100).toFixed(1)}%
