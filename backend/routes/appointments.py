@@ -66,13 +66,13 @@ def get_provider_appointments(email: str, db: Session = Depends(get_db)):
     )
 
     # ✅ Include fallback matching by provider name (in case patient booked by name)
-    if not appointments:
-        appointments = (
-            db.query(models.Appointment)
-            .filter(models.Appointment.hospital_name == provider.hospital_name)
-            .filter(models.Appointment.appointment_type.isnot(None))
-            .all()
-        )
+    #if not appointments:
+        #appointments = (
+            #db.query(models.Appointment)
+            #.filter(models.Appointment.hospital_name == provider.hospital_name)
+            #.filter(models.Appointment.appointment_type.isnot(None))
+            #.all()
+        #)
 
     # ✅ Serialize results safely
     results = []
