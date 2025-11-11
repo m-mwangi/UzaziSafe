@@ -48,7 +48,7 @@ export function ProviderAppointments() {
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [confirmation, setConfirmation] = useState("");
-  const [loading, setLoading] = useState(true); // ✅ added loading flag
+  const [loading, setLoading] = useState(true); // added loading flag
   const [formData, setFormData] = useState({
     patientId: "",
     patientName: "",
@@ -59,10 +59,10 @@ export function ProviderAppointments() {
 
   const token = localStorage.getItem("token") || "";
 
-  // ✅ Load provider info from backend
+  // Load provider info from backend
   const loadProviderInfo = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:8000/providers/me", {
+      const res = await fetch("https://uzazisafe-backend.onrender.com/providers/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error("Failed to load provider info");
@@ -73,12 +73,12 @@ export function ProviderAppointments() {
     }
   };
 
-  // 🔹 Load appointments for provider using provider_id
+  // Load appointments for provider using provider_id
   const loadAppointments = async (providerId?: number) => {
     if (!providerId) return;
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/providers/${providerId}/appointments`,
+        `https://uzazisafe-backend.onrender.com/providers/${providerId}/appointments`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (!res.ok) throw new Error("Failed to fetch provider appointments");
@@ -103,12 +103,12 @@ export function ProviderAppointments() {
     }
   };
 
-  // 🔹 Load patients assigned to provider using provider_id
+  // Load patients assigned to provider using provider_id
   const loadPatients = async (providerId?: number) => {
     if (!providerId) return;
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/providers/${providerId}/patients`,
+        `https://uzazisafe-backend.onrender.com/providers/${providerId}/patients`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (!res.ok) throw new Error("Failed to fetch patients");
@@ -129,27 +129,27 @@ export function ProviderAppointments() {
     loadProviderInfo();
   }, []);
 
-  // ✅ Load both appointments and patients in parallel once provider info is ready
+  // Load both appointments and patients in parallel once provider info is ready
   useEffect(() => {
     const fetchProviderData = async () => {
       if (providerInfo?.provider_id) {
-        setLoading(true); // ✅ start loading
+        setLoading(true); // start loading
         try {
           await Promise.all([
             loadAppointments(providerInfo.provider_id),
             loadPatients(providerInfo.provider_id),
           ]);
         } catch (err) {
-          console.error("❌ Error fetching provider data:", err);
+          console.error("Error fetching provider data:", err);
         } finally {
-          setLoading(false); // ✅ end loading
+          setLoading(false); // end loading
         }
       }
     };
     fetchProviderData();
   }, [providerInfo]);
 
-  // ✅ Book new appointment
+  // Book new appointment
   const handleAddAppointment = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -171,7 +171,7 @@ export function ProviderAppointments() {
         provider_id: providerInfo.provider_id,
       };
 
-      const res = await fetch("http://127.0.0.1:8000/appointments/book", {
+      const res = await fetch("https://uzazisafe-backend.onrender.com/appointments/book", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -186,22 +186,22 @@ export function ProviderAppointments() {
         throw new Error("Failed to book appointment");
       }
 
-      setConfirmation("✅ Appointment scheduled successfully.");
+      setConfirmation("Appointment scheduled successfully.");
       setFormData({ patientId: "", patientName: "", date: "", time: "", type: "" });
       setOpen(false);
       await loadAppointments(providerInfo.provider_id);
       setTimeout(() => setConfirmation(""), 3000);
     } catch (err) {
       console.error("Error booking appointment:", err);
-      setConfirmation("❌ Failed to schedule appointment.");
+      setConfirmation("Failed to schedule appointment.");
       setTimeout(() => setConfirmation(""), 3000);
     }
   };
 
-  // ✅ Update status
+  // Update status
   const updateStatus = async (id: string, newStatus: string) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/appointments/${id}/status`, {
+      const res = await fetch(`https://uzazisafe-backend.onrender.com/appointments/${id}/status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -213,8 +213,8 @@ export function ProviderAppointments() {
       if (providerInfo?.provider_id) await loadAppointments(providerInfo.provider_id);
       setConfirmation(
         newStatus === "Completed"
-          ? "✅ Appointment marked as completed."
-          : "❌ Appointment cancelled."
+          ? "Appointment marked as completed."
+          : "Appointment cancelled."
       );
       setTimeout(() => setConfirmation(""), 3000);
     } catch (err) {
@@ -222,7 +222,7 @@ export function ProviderAppointments() {
     }
   };
 
-  // ✅ Show loading only during fetch
+  // Show loading only during fetch
   if (loading) {
     return (
       <div className="text-center text-gray-600 mt-10">
@@ -457,4 +457,3 @@ export function ProviderAppointments() {
 function Building2Icon() {
   return <span className="inline-block w-4 h-4 text-purple-600">🏥</span>;
 }
-
