@@ -45,9 +45,9 @@ app.add_middleware(
 try:
     model = joblib.load("backend/xgboost_model.pkl")
     explainer = shap.TreeExplainer(model)
-    print("✅ Model loaded successfully.")
+    print("Model loaded successfully.")
 except Exception as e:
-    print("⚠️ Model could not be loaded:", e)
+    print(" Model could not be loaded:", e)
 
 # ==========================================================
 # Root endpoint
@@ -70,7 +70,7 @@ app.include_router(risk_assess.router)
 # ==========================================================
 def custom_openapi():
     """
-    ✅ Ensures Swagger UI shows and applies Bearer token globally
+    Ensures Swagger UI shows and applies Bearer token globally
     """
     if app.openapi_schema:
         del app.openapi_schema  # Force refresh schema each time
