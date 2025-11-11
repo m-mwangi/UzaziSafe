@@ -2,9 +2,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
-from . import models
-from .database import engine
-from .routes import patients, appointments, auth, provider, risk_assess
+from backend import models
+from backend.database import engine
+from backend.routes import patients, appointments, auth, provider, risk_assess
 import joblib
 import shap
 
@@ -43,7 +43,7 @@ app.add_middleware(
 # Load Machine Learning Model (optional)
 # ==========================================================
 try:
-    model = joblib.load("xgboost_model.pkl")
+    model = joblib.load("backend/xgboost_model.pkl")
     explainer = shap.TreeExplainer(model)
     print("✅ Model loaded successfully.")
 except Exception as e:
@@ -62,7 +62,6 @@ def home():
 app.include_router(auth.router)
 app.include_router(patients.router)
 app.include_router(appointments.router)
-#app.include_router(risk_history.router)
 app.include_router(provider.router)
 app.include_router(risk_assess.router)
 
@@ -99,5 +98,6 @@ def custom_openapi():
 
     app.openapi_schema = openapi_schema
     return app.openapi_schema
+
 
 app.openapi = custom_openapi
