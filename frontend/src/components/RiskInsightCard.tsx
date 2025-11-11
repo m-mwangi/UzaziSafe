@@ -6,7 +6,7 @@ interface RiskInsightCardProps {
   formData: any;
 }
 
-// ✅ SHAP-Aware Clinical Insight Generator
+// SHAP-Aware Clinical Insight Generator
 function getReadableInsight(feature: string, value: string, shapValue: number = 0) {
   const num = parseFloat(value);
   let level: "normal" | "monitor" | "attention" = "normal";
@@ -17,78 +17,78 @@ function getReadableInsight(feature: string, value: string, shapValue: number = 
     case "Age":
       if (num > 35) {
         level = "attention";
-        text = "Above 35 — considered higher risk during pregnancy.";
+        text = "Above 35 - considered higher risk during pregnancy.";
       } else text = "Within healthy maternal age range.";
       break;
 
     case "Systolic BP":
       if (num > 135) {
         level = "attention";
-        text = "Elevated — may indicate early signs of hypertension.";
+        text = "Elevated - may indicate early signs of hypertension.";
       } else if (num < 90) {
         level = "monitor";
-        text = "Lower than normal — ensure adequate hydration and rest.";
+        text = "Lower than normal - ensure adequate hydration and rest.";
       } else text = "Within normal systolic range for pregnancy.";
       break;
 
     case "Diastolic BP":
       if (num > 85) {
         level = "attention";
-        text = "Slightly high — may indicate rising blood pressure.";
+        text = "Slightly high - may indicate rising blood pressure.";
       } else if (num < 55) {
         level = "monitor";
-        text = "Below expected — may indicate low vascular tone.";
+        text = "Below expected - may indicate low vascular tone.";
       } else text = "Normal diastolic pressure range.";
       break;
 
     case "Blood Sugar":
       if (num > 7.8) {
         level = "attention";
-        text = "High blood sugar — possible gestational diabetes, monitor closely.";
+        text = "High blood sugar - possible gestational diabetes, monitor closely.";
       } else if (num < 3.2) {
         level = "monitor";
-        text = "Low blood sugar — may indicate hypoglycemia, eat regularly.";
+        text = "Low blood sugar - may indicate hypoglycemia, eat regularly.";
       } else text = "Healthy blood sugar range.";
       break;
 
     case "Body Temp":
       if (num > 99.5) {
         level = "attention";
-        text = "Slightly elevated — may suggest fever or mild infection.";
+        text = "Slightly elevated - may suggest fever or mild infection.";
       } else if (num < 96.5) {
         level = "monitor";
-        text = "Below normal — keep warm and stay hydrated.";
+        text = "Below normal - keep warm and stay hydrated.";
       } else text = "Normal body temperature.";
       break;
 
     case "Heart Rate":
       if (num > 110) {
         level = "attention";
-        text = "Elevated — may relate to stress or mild fever.";
+        text = "Elevated - may relate to stress or mild fever.";
       } else if (num < 60) {
         level = "monitor";
-        text = "Lower than expected — monitor for dizziness or fatigue.";
+        text = "Lower than expected - monitor for dizziness or fatigue.";
       } else text = "Healthy resting heart rate.";
       break;
 
     case "Pre-existing Diabetes":
       if (value === "Yes") {
         level = "attention";
-        text = "Pre-existing diabetes adds to pregnancy risk — maintain strict glucose control.";
+        text = "Pre-existing diabetes adds to pregnancy risk - maintain strict glucose control.";
       } else text = "No pre-existing diabetes reported.";
       break;
 
     case "Gestational Diabetes":
       if (value === "Yes") {
         level = "attention";
-        text = "Gestational diabetes detected — ongoing glucose monitoring is important.";
+        text = "Gestational diabetes detected - ongoing glucose monitoring is important.";
       } else text = "No gestational diabetes reported.";
       break;
 
     case "Previous Complications":
       if (value === "Yes") {
         level = "attention";
-        text = "Previous complications may increase recurrence risk — follow up regularly.";
+        text = "Previous complications may increase recurrence risk - follow up regularly.";
       } else text = "No previous pregnancy complications reported.";
       break;
 
@@ -100,7 +100,7 @@ function getReadableInsight(feature: string, value: string, shapValue: number = 
   if (Math.abs(shapValue) > 0.7) {
     if (shapValue > 0 && level === "normal") {
       level = "monitor";
-      text = "Clinically within range, but model detected elevated influence — monitor closely.";
+      text = "Clinically within range, but model detected elevated influence - monitor closely.";
     } else if (shapValue < 0 && level === "attention") {
       text += " However, AI model indicates this may not strongly increase risk.";
     }
@@ -109,7 +109,7 @@ function getReadableInsight(feature: string, value: string, shapValue: number = 
   return { text, level };
 }
 
-// ✅ Recommendations
+// Recommendations
 function getRecommendations(data: any) {
   const doctor: string[] = [];
   const lifestyle: string[] = [];
@@ -127,12 +127,12 @@ function getRecommendations(data: any) {
     doctor.push("Discuss any previous pregnancy complications with your obstetrician to reduce recurrence risks.");
 
   if (doctor.length === 0 && lifestyle.length === 0 && monitor.length === 0)
-    lifestyle.push("You’re doing well — maintain your healthy lifestyle and routine prenatal visits.");
+    lifestyle.push("You’re doing well - maintain your healthy lifestyle and routine prenatal visits.");
 
   return { doctor, lifestyle, monitor };
 }
 
-// ✅ Circular Risk Gauge
+// Circular Risk Gauge
 function RiskGauge({ value, isHighRisk }: { value: number; isHighRisk: boolean }) {
   const radius = 50;
   const circumference = 2 * Math.PI * radius;
@@ -245,7 +245,7 @@ export function RiskInsightCard({ result, formData }: RiskInsightCardProps) {
           <div className="mt-8">
             <div className="flex items-center gap-2 mb-2">
               <Brain className="w-5 h-5 text-purple-600" />
-              <h3 className="font-semibold text-lg text-gray-800">Model Insights (AI Explainability)</h3>
+              <h3 className="font-semibold text-lg text-gray-800">Model Insights </h3>
             </div>
             <p className="text-sm text-gray-600 mb-3">
               These are the key factors that most influenced the model’s prediction.
