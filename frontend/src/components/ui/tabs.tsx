@@ -24,7 +24,7 @@ export const Tabs: React.FC<TabsProps> = ({
     <div className={`w-full ${className}`}>
       {React.Children.map(children, (child) => {
         if (!React.isValidElement(child)) return child;
-        // ✅ Pass activeValue + setActiveValue to ALL children (e.g. TabsList)
+        // Pass activeValue + setActiveValue to ALL children (e.g. TabsList)
         return React.cloneElement(child as React.ReactElement<any>, {
           activeValue: value,
           setActiveValue: onValueChange,
@@ -36,7 +36,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
 /**
  * TabsList — contains tab triggers
- * ✅ Updated: now forwards activeValue + setActiveValue to its children (TabsTrigger)
+ * Updated: now forwards activeValue + setActiveValue to its children (TabsTrigger)
  */
 export const TabsList: React.FC<
   React.HTMLAttributes<HTMLDivElement> & {
