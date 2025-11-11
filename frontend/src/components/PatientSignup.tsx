@@ -93,8 +93,8 @@ export function PatientSignup({ onBack }: PatientSignupProps) {
         }`
       );
 
-      // Redirect back to login after 2 seconds
-      setTimeout(() => onBack(), 2000);
+      // Redirect back to login after 3 seconds
+      setTimeout(() => onBack(), 3000);
     } catch (error: any) {
       setError(error.message || "Something went wrong during signup.");
     }
