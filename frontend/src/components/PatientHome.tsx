@@ -66,7 +66,7 @@ const riskColor =
     setConfirmation("");
 
     try {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("token");
       if (!token) throw new Error("Missing authentication token");
 
       const combinedDateTime = `${appointmentDate}T${appointmentTime}:00`;
