@@ -98,7 +98,7 @@ export function AppointmentsDashboard({
   // Mark appointment as completed (persist to backend)
   const markCompleted = async (id: number) => {
     try {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
       const res = await fetch(
@@ -133,7 +133,7 @@ export function AppointmentsDashboard({
       return;
 
     try {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
       const res = await fetch(
