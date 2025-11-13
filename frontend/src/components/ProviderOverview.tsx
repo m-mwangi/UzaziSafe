@@ -18,6 +18,28 @@ function ProviderOverview({ provider }: { provider: any }) {
   const [todaysAppointments, setTodaysAppointments] = useState<any[]>([]);
   const [activities, setActivities] = useState<any[]>([]);
 
+  
+  // ------------------------------------------------
+  // ⭐ FIX ADDED HERE — Time Parsing Helper
+  // ------------------------------------------------
+  const formatLocalTime = (timeString: string) => {
+    if (!timeString) return "Unknown time";
+
+    const parsed = Date.parse(timeString);
+
+    if (!isNaN(parsed)) {
+      return new Date(parsed).toLocaleString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+        day: "2-digit",
+        month: "short",
+      });
+    }
+
+    return timeString; // fallback
+  };
+
   // Fetch provider stats from backend
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -253,14 +275,8 @@ function ProviderOverview({ provider }: { provider: any }) {
                       dangerouslySetInnerHTML={{ __html: activity.text }}
                     />
                     <p className="text-xs text-gray-400 mt-1">
-  {new Date(activity.time + "Z").toLocaleString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-    day: "2-digit",
-    month: "short",
-  })}
-</p>
+                      {formatLocalTime(activity.time)}
+                    </p>
 
                   </div>
                 </div>
