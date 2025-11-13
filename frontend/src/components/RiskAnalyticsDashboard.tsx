@@ -172,27 +172,28 @@ export function RiskAnalyticsDashboard({
       oneWeekAgo.setDate(oneWeekAgo.getDate() - 6);
 
       const weekly = historyData.filter(
-        (h) => new Date(h.timestamp) >= oneWeekAgo
-      );
-      const grouped: Record<string, number[]> = {};
-      weekly.forEach((h) => {
-        const d = new Date(h.timestamp).toLocaleDateString();
-        if (!grouped[d]) grouped[d] = [];
-        grouped[d].push(h.highProb ?? 0);
-      });
+  (h) => new Date(h.timestamp) >= oneWeekAgo
+);
 
-      const chart = Object.entries(grouped)
-        .map(([date, vals]) => ({
-          date,
-          score: vals.reduce((a, b) => a + b, 0) / vals.length,
-        }))
-        .sort(
-          (a, b) =>
-            new Date(a.date).getTime() -
-            new Date(b.date).getTime()
-        );
+// Group by ISO date key
+const grouped: Record<string, number[]> = {};
+weekly.forEach((h) => {
+  const dateObj = new Date(h.timestamp);
+  const isoKey = dateObj.toISOString().split("T")[0]; // e.g. 2025-11-13
+  if (!grouped[isoKey]) grouped[isoKey] = [];
+  grouped[isoKey].push(h.highProb ?? 0);
+});
 
-      setChartData(chart);
+// Build chart array and sort chronologically
+const chart = Object.entries(grouped)
+  .map(([isoKey, vals]) => ({
+    sortKey: isoKey,
+    date: new Date(isoKey).toLocaleDateString("en-GB"), // keep DD/MM/YYYY
+    score: vals.reduce((a, b) => a + b, 0) / vals.length,
+  }))
+  .sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+
+setChartData(chart);
 
       const scores = chart.map((c) => c.score);
       if (scores.length) {
