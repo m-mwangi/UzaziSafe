@@ -252,7 +252,16 @@ function ProviderOverview({ provider }: { provider: any }) {
                       className="text-gray-700 text-sm"
                       dangerouslySetInnerHTML={{ __html: activity.text }}
                     />
-                    <p className="text-xs text-gray-400 mt-1">{activity.time}</p>
+                    <p className="text-xs text-gray-400 mt-1">
+  {new Date(activity.time + "Z").toLocaleString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+    day: "2-digit",
+    month: "short",
+  })}
+</p>
+
                   </div>
                 </div>
               ))}
