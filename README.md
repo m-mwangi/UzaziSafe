@@ -47,6 +47,11 @@ UzaziSafe/
 ```
 
 ## Environment Setup and Project Installation
+### Clone the Repository
+```bash
+git clone https://github.com/m-mwangi/UzaziSafe.git
+cd UzaziSafe
+```
 
 ### Backend Setup
 ```bash
@@ -56,6 +61,14 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### Run the FastAPI App
+```bash
+uvicorn app:main --reload
+```
+Once running, open:
+http://127.0.0.1:8000/docs
+
+
 ### Frontend Setup
 ```bash
 cd frontend
@@ -64,44 +77,6 @@ npm run dev
 ```
 
 
-
-
-## GitHub Repository
-https://github.com/m-mwangi/UzaziSafe
-
-## Demo Video
-
-
-## Environment Setup and Project Installation
-
-Follow these steps to set up and run the project locally:
-
-### Clone the Repository
-```bash
-git clone https://github.com/m-mwangi/UzaziSafe.git
-```
-
-### Run the FastAPI App
-```bash
-uvicorn app:app --reload
-```
-Once running, open:
-http://127.0.0.1:8000/docs
-
-You’ll see an interactive Swagger UI where you can test the prediction endpoint with patient data.
-
-## Deployment Plan
-- Local deployment using FastAPI and Uvicorn.
-- Model file (xgboost_model.pkl) is loaded for predictions.
-- The API accepts clinical input parameters and returns:
-
-```
-{
-  "Prediction": "High Risk",
-  "High_Risk_Probability": 0.87,
-  "Low_Risk_Probability": 0.13
-}
-```
 
 ### Future Deployment
 - Containerize the app using Docker.
