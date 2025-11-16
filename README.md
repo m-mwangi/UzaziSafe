@@ -1,6 +1,13 @@
 # UzaziSafe - Maternal Health Risk Prediction System
 UzaziSafe is a full-stack maternal health monitoring and risk prediction system designed to support safe pregnancies through machine-learning–powered clinical decision support. The system enables real-time maternal health risk prediction, digital appointment management, and provider dashboards for patient monitoring.
 
+## Deployed Frontend
+
+## Deployed Backend
+
+## Demo Video
+
+
 ## Features
 **For Patients:**
 - Perform maternal risk self-assessments.
@@ -101,3 +108,36 @@ npm run dev
 
 **Risk Analytics**
 <img width="1509" height="1006" alt="image" src="https://github.com/user-attachments/assets/e91dd2c8-8c3e-4054-87f3-080c98e026e0" />
+
+
+## Testing
+**Automated Testing (pytest)**
+Coverage includes:
+- Authentication & JWT
+- Patient & provider routes
+- Appointment scheduling
+- ML risk predictions
+- Utility functions
+
+To run tests:
+```bash
+pytest -v
+```
+
+**Load Testing (Locust)**
+Tests simulated:
+- Login + token generation
+- Patient dashboard access
+- Risk prediction requests
+- Appointment retrieval
+
+Run:
+```bash
+locust -f locustfile.py
+```
+
+## Author
+Marion Wandia Mwangi
+m.mwangi2@alustudent.com
+Final Year Capstone Project (2025)
+African Leadership University
