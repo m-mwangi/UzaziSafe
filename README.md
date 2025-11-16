@@ -46,7 +46,7 @@ UzaziSafe/
 └── README.md                    # Project documentation
 ```
 
-## Installation
+## Environment Setup and Project Installation
 
 ### Backend Setup
 ```bash
@@ -60,14 +60,7 @@ pip install -r requirements.txt
 
 
 
-## Project Description
-UzaziSafe is a comprehensive maternal health monitoring system that utilizes machine learning to predict pregnancy-related risks and offers digital support to patients and healthcare providers. The system enables:
-- Real-time maternal risk prediction using a trained XGBoost model.
-- Clinical dashboards for patients and providers.
-- Appointments scheduling and patient management.
-- Secure authentication using JWT.
-- Explainable AI via SHAP feature contributions.
-- Scalable FastAPI + PostgreSQL + React architecture.
+
 
 ## GitHub Repository
 https://github.com/m-mwangi/UzaziSafe
