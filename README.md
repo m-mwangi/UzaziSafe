@@ -114,6 +114,7 @@ npm run dev
 
 ## Testing
 **Automated Testing (pytest)**
+
 Coverage includes:
 - Authentication & JWT
 - Patient & provider routes
@@ -127,6 +128,7 @@ pytest -v
 ```
 
 **Load Testing (Locust)**
+
 Tests simulated:
 - Login + token generation
 - Patient dashboard access
