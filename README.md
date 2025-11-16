@@ -1,15 +1,15 @@
 # UzaziSafe - Maternal Health Risk Prediction System
+UzaziSafe is a full-stack maternal health monitoring and risk prediction system designed to support safe pregnancies through machine-learning–powered clinical decision support. The system enables real-time maternal health risk prediction, digital appointment management, and provider dashboards for patient monitoring.
 
-## Features
-
-### For Patients
+## Features:
+**For Patients**
 - Perform maternal risk self-assessments.
 - View personalized risk insights with SHAP explainability.
 - Track risk history and health trends.
 - Book and manage appointments.
 - Secure authentication with JWT.
 
-### For Healthcare Providers
+**For Healthcare Providers**
 - View caseload overview and high-risk patient flags.
 - Access patient summaries and detailed history.
 - Manage appointments.
