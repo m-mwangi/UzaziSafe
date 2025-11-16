@@ -138,6 +138,8 @@ Run:
 locust -f locustfile.py
 ```
 
+Find more details on the testing here: https://github.com/m-mwangi/UzaziSafe/tree/main/backend/tests
+
 ## Author
 Marion Wandia Mwangi
 
