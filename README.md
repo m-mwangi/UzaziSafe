@@ -76,8 +76,24 @@ npm install
 npm run dev
 ```
 
+### Patient Dashboard
 
+**Signup/Sign in**
+<img width="1836" height="969" alt="image" src="https://github.com/user-attachments/assets/c136dfa3-99e7-47d0-8e8e-0c99c914346f" />
 
-### Future Deployment
-- Containerize the app using Docker.
-- Deploy on Render.
+**HomePage**
+<img width="1919" height="851" alt="image" src="https://github.com/user-attachments/assets/022fc44c-b610-42f1-85fc-c666cff573a8" />
+
+**Risk Assessment Form**
+<img width="906" height="963" alt="image" src="https://github.com/user-attachments/assets/a7b51043-df8b-4355-95f7-d2d28eda6328" />
+
+### Provider Dashboard
+
+**HomePage**
+<img width="1872" height="979" alt="image" src="https://github.com/user-attachments/assets/36f8a205-0582-41f6-83c7-2d656aedd699" />
+
+**Patient Management**
+<img width="999" height="998" alt="image" src="https://github.com/user-attachments/assets/527624f6-7900-4876-b3ed-cefc5baa0123" />
+
+**Risk Analytics**
+<img width="1509" height="1006" alt="image" src="https://github.com/user-attachments/assets/e91dd2c8-8c3e-4054-87f3-080c98e026e0" />
