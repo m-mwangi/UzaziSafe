@@ -18,11 +18,9 @@ UzaziSafe is a full-stack maternal health monitoring and risk prediction system 
 ### Machine Learning
 - XGBoost model trained to classify pregnancies as "High Risk" or "Low Risk".
 - SHAP explanations for transparent clinical interpretation.
-- Test accuracy: **90.4%** and ROC-AUC: **0.965**
+- Test accuracy: **90.4%** and ROC-AUC: **0.965**.
 
-## 🏗 System Architecture
-
-**Tech Stack**
+### Tech Stack
 
 | Layer | Technology |
 |-------|------------|
@@ -36,24 +34,27 @@ UzaziSafe is a full-stack maternal health monitoring and risk prediction system 
 
 ---
 
-## 📦 Project Structure
 
+
+
+## 📦 Project Structure
 uzazi-safe/
-├── backend/
-│ ├── app/
-│ │ ├── models/ # SQLAlchemy ORM models
-│ │ ├── schemas/ # Pydantic data validation
-│ │ ├── routes/ # API endpoints
-│ │ ├── ml/ # ML model + SHAP
-│ │ ├── core/ # Auth, config, utils
-│ │ └── main.py # API entrypoint
-├── frontend/
-│ ├── src/
-│ │ ├── pages/ # UI screens
-│ │ ├── components/ # Reusable components
-│ │ └── api/ # API service calls
-├── tests/ # Pytest test suite
-└── README.md
+ ├── backend/
+ │   ├── app/
+ │   │   ├── models/         # SQLAlchemy ORM models
+ │   │   ├── schemas/        # Pydantic validation schemas
+ │   │   ├── routes/         # FastAPI endpoints
+ │   │   ├── ml/             # XGBoost model + SHAP
+ │   │   ├── core/           # Auth, config, utils
+ │   │   └── main.py         # API entrypoint
+ ├── frontend/
+ │   ├── src/
+ │   │   ├── pages/          # Screens (Dashboards, Login, Risk Assessment)
+ │   │   ├── components/     # UI components
+ │   │   └── api/            # Axios API service
+ ├── tests/                  # pytest automated tests
+ └── README.md
+
 
 ## Project Description
 UzaziSafe is a comprehensive maternal health monitoring system that utilizes machine learning to predict pregnancy-related risks and offers digital support to patients and healthcare providers. The system enables:
