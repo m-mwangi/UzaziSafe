@@ -138,6 +138,9 @@ locust -f locustfile.py
 
 ## Author
 Marion Wandia Mwangi
+
 m.mwangi2@alustudent.com
+
 Final Year Capstone Project (2025)
+
 African Leadership University
