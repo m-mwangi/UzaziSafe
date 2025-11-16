@@ -15,12 +15,12 @@ UzaziSafe is a full-stack maternal health monitoring and risk prediction system 
 - Manage appointments.
 - Review risk analytics and trends.
 
-### Machine Learning
+## Machine Learning
 - XGBoost model trained to classify pregnancies as "High Risk" or "Low Risk".
 - SHAP explanations for transparent clinical interpretation.
 - Test accuracy: **90.4%** and ROC-AUC: **0.965**.
 
-### System Architecture
+## System Architecture
 
 The platform follows a modular architecture consisting of the following layers:
 
@@ -33,9 +33,7 @@ The platform follows a modular architecture consisting of the following layers:
 | Auth         | JWT + bcrypt                          | Secure access control |
 
 
-
-
-## 📦 Project Structure
+## Project Structure
 uzazi-safe/
  ├── backend/
  │   ├── app/
