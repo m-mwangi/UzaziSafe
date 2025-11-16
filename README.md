@@ -34,25 +34,17 @@ The platform follows a modular architecture consisting of the following layers:
 
 
 ## Project Structure
-## Project Structure
 ```
-uzazi-safe/
-├── backend/
-│   ├── app/
-│   │   ├── models/         # SQLAlchemy ORM models
-│   │   ├── schemas/        # Pydantic validation schemas
-│   │   ├── routes/         # FastAPI endpoints
-│   │   ├── ml/             # XGBoost model + SHAP
-│   │   ├── core/           # Auth, config, utils
-│   │   └── main.py         # API entrypoint
-├── frontend/
-│   ├── src/
-│   │   ├── pages/          # Screens (Dashboards, Login, Risk Assessment)
-│   │   ├── components/     # UI components
-│   │   └── api/            # Axios API service
-├── tests/                  # pytest automated tests
-└── README.md
-
+UzaziSafe/
+├── backend/                     # FastAPI backend (API, ML inference, database)
+├── frontend/                    # React + TypeScript web client
+├── models/                      # Trained ML models.
+├── notebook/                    # Notebook for model implementation
+├── Maternal Health Data.csv     # Dataset used for model development
+├── test.db                      # Local development/test database
+├── pytest.ini                   # Test configuration
+└── README.md                    # Project documentation
+```
 
 
 
