@@ -2,8 +2,10 @@
 UzaziSafe is a full-stack maternal health monitoring and risk prediction system designed to support safe pregnancies through machine-learning–powered clinical decision support. The system enables real-time maternal health risk prediction, digital appointment management, and provider dashboards for patient monitoring.
 
 ## Deployed Frontend
+https://uzazisafe.onrender.com
 
 ## Deployed Backend
+https://uzazisafe-backend.onrender.com
 
 ## Demo Video
 
