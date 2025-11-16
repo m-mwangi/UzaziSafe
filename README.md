@@ -1,15 +1,15 @@
 # UzaziSafe - Maternal Health Risk Prediction System
 UzaziSafe is a full-stack maternal health monitoring and risk prediction system designed to support safe pregnancies through machine-learning–powered clinical decision support. The system enables real-time maternal health risk prediction, digital appointment management, and provider dashboards for patient monitoring.
 
-## Features:
-**For Patients**
+## Features
+**For Patients:**
 - Perform maternal risk self-assessments.
 - View personalized risk insights with SHAP explainability.
 - Track risk history and health trends.
 - Book and manage appointments.
 - Secure authentication with JWT.
 
-**For Healthcare Providers**
+**For Healthcare Providers:**
 - View caseload overview and high-risk patient flags.
 - Access patient summaries and detailed history.
 - Manage appointments.
@@ -20,19 +20,17 @@ UzaziSafe is a full-stack maternal health monitoring and risk prediction system 
 - SHAP explanations for transparent clinical interpretation.
 - Test accuracy: **90.4%** and ROC-AUC: **0.965**.
 
-### Tech Stack
+### System Architecture
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | React + TypeScript + TailwindCSS |
-| Backend API | FastAPI (Python) |
-| Database | PostgreSQL (Neon Tech) |
-| ML Model | XGBoost + SHAP |
-| Authentication | JWT + bcrypt |
+The platform follows a modular architecture consisting of the following layers:
 
-📌 *(Insert system architecture diagram here)*
-
----
+| Layer        | Technology                            | Responsibility |
+|--------------|----------------------------------------|----------------|
+| Frontend     | React + TypeScript + TailwindCSS      | Role-based dashboards (Patient & Provider) |
+| Backend API  | FastAPI (Python)                      | Authentication, risk assessment, appointments, providers |
+| Database     | PostgreSQL (Neon Tech)                | Persistent storage (users, risk histories, appointments) |
+| ML Model     | XGBoost + SHAP                        | Risk prediction & interpretability |
+| Auth         | JWT + bcrypt                          | Secure access control |
 
 
 
