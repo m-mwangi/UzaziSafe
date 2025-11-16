@@ -1,19 +1,13 @@
 # UzaziSafe - Maternal Health Risk Prediction System
 
 ## Project Description
-This project is an ML-powered maternal health prediction system that classifies patients as either **High Risk** or **Low Risk** based on key clinical indicators such as:
-- Age
-- Diastolic BP
-- Systolic BP
-- Blood Sugar
-- Body Temperature
-- Previous Complications
-- Gestational Diabetes
-- Pre-existing Diabetes
-- Heart Rate
-
-The solution integrates a Machine Learning pipeline (data preprocessing → model training → evaluation → deployment) and serves predictions in real time through a FastAPI application.  
-The **XGBoost model** achieved the best performance and was selected for deployment.
+UzaziSafe is a comprehensive maternal health monitoring system that utilizes machine learning to predict pregnancy-related risks and offers digital support to patients and healthcare providers. The system enables:
+- Real-time maternal risk prediction using a trained XGBoost model.
+- Clinical dashboards for patients and providers.
+- Appointments scheduling and patient management.
+- Secure authentication using JWT.
+- Explainable AI via SHAP feature contributions.
+- Scalable FastAPI + PostgreSQL + React architecture.
 
 ## GitHub Repository
 https://github.com/m-mwangi/UzaziSafe
