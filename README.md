@@ -35,7 +35,7 @@ The platform follows a modular architecture consisting of the following layers:
 
 ## Project Structure
 ## Project Structure
-```txt
+```
 uzazi-safe/
 ├── backend/
 │   ├── app/
