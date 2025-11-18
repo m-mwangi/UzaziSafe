@@ -1,4 +1,3 @@
-# backend/tests/test_utils.py
 from jose import jwt
 from backend.utils import hash_password, verify_password, create_access_token, SECRET_KEY, ALGORITHM
 
