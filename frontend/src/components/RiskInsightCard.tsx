@@ -12,7 +12,6 @@ function getReadableInsight(feature: string, value: string, shapValue: number = 
   let level: "normal" | "monitor" | "attention" = "normal";
   let text = "";
 
-  // --- Adjusted pregnancy-safe ranges ---
   switch (feature) {
     case "Age":
       if (num > 35) {
@@ -96,7 +95,6 @@ function getReadableInsight(feature: string, value: string, shapValue: number = 
       text = "No data available for this indicator.";
   }
 
-  // --- SHAP Adjustment: align AI logic and clinical insight ---
   if (Math.abs(shapValue) > 0.7) {
     if (shapValue > 0 && level === "normal") {
       level = "monitor";
