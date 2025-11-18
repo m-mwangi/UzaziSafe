@@ -13,10 +13,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from .database import Base
 
-
-# ==========================================================
 # USER MODEL
-# ==========================================================
 class User(Base):
     __tablename__ = "users"
 
@@ -51,10 +48,7 @@ class User(Base):
         foreign_keys="Patient.user_id"
     )
 
-
-# ==========================================================
 # PATIENT MODEL
-# ==========================================================
 class Patient(Base):
     __tablename__ = "patients"
 
@@ -76,14 +70,12 @@ class Patient(Base):
 
     risk_history = relationship("RiskHistory", back_populates="patient", cascade="all, delete")
 
-    # ✅ Added timestamps for tracking
+    # Added timestamps for tracking
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
 
-# ==========================================================
 # APPOINTMENT MODEL
-# ==========================================================
 class Appointment(Base):
     __tablename__ = "appointments"
 
@@ -97,14 +89,12 @@ class Appointment(Base):
     provider_id = Column(Integer, ForeignKey("users.id"))
     provider = relationship("User", back_populates="appointments", foreign_keys=[provider_id])
 
-    # ✅ Added timestamps for accurate activity tracking
+    # Added timestamps for accurate activity tracking
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
 
-# ==========================================================
 # RISK HISTORY MODEL
-# ==========================================================
 class RiskHistory(Base):
     __tablename__ = "risk_history"
 
@@ -116,7 +106,7 @@ class RiskHistory(Base):
     contributing_factors = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    # 🧠 Optional: include vital metrics used during risk analysis
+    # Optional: include vital metrics used during risk analysis
     systolic_bp = Column(Float, nullable=True)
     diastolic_bp = Column(Float, nullable=True)
     blood_sugar = Column(Float, nullable=True)
@@ -124,4 +114,3 @@ class RiskHistory(Base):
     heart_rate = Column(Float, nullable=True)
 
     patient = relationship("Patient", back_populates="risk_history")
-
