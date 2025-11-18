@@ -3,9 +3,7 @@ from typing import Optional
 from datetime import datetime
 from enum import Enum
 
-# ==========================================================
 # ENUM: HOSPITAL LIST (used in signup dropdown)
-# ==========================================================
 class HospitalName(str, Enum):
     aga_khan = "Aga Khan Hospital"
     nairobi_women = "Nairobi Women's Hospital"
@@ -13,18 +11,14 @@ class HospitalName(str, Enum):
     uzazisafe = "UzaziSafe Health Center"
 
 
-# ==========================================================
 # ENUM: PROVIDER ROLE
-# ==========================================================
 class ProviderRole(str, Enum):
     doctor = "Doctor"
     nurse = "Nurse"
     midwife = "Midwife"
 
 
-# ==========================================================
 # USER SCHEMAS
-# ==========================================================
 class UserBase(BaseModel):
     full_name: str
     email: EmailStr
@@ -59,9 +53,7 @@ class UserResponse(BaseModel):
         from_attributes = True
 
 
-# ==========================================================
 # PATIENT SCHEMAS
-# ==========================================================
 class PatientBase(BaseModel):
     full_name: str
     age: Optional[int] = None
@@ -82,11 +74,9 @@ class PatientResponse(PatientBase):
     class Config:
         from_attributes = True
 
-# ==========================================================
 # PATIENT DASHBOARD RESPONSE
-# ==========================================================
 class PatientDashboardResponse(BaseModel):
-    patient_id: int   # ✅ add this
+    patient_id: int 
     full_name: str
     email: str
     hospital_name: str
@@ -96,7 +86,7 @@ class PatientDashboardResponse(BaseModel):
     last_assessment_date: Optional[datetime] = None
     next_appointment: Optional[str] = None
 
-    # ✅ Add static patient fields so FastAPI returns them
+    # Add static patient fields so FastAPI returns them
     age: Optional[int] = None
     pre_existing_diabetes: Optional[str] = None
     gestational_diabetes: Optional[str] = None
@@ -105,13 +95,10 @@ class PatientDashboardResponse(BaseModel):
     class Config:
         from_attributes = True
 
-
-# ==========================================================
-# ✅ PROVIDER DASHBOARD RESPONSE (CORRECTED)
-# ==========================================================
+# PROVIDER DASHBOARD RESPONSE
 class ProviderDashboardResponse(BaseModel):
     provider_id: int
-    provider_name: str  # ✅ renamed from full_name
+    provider_name: str 
     email: str
     hospital_name: str
     role: str
@@ -123,9 +110,7 @@ class ProviderDashboardResponse(BaseModel):
         from_attributes = True
 
 
-# ==========================================================
 # APPOINTMENT SCHEMAS
-# ==========================================================
 class AppointmentBase(BaseModel):
     patient_name: str
     date: datetime
@@ -148,9 +133,7 @@ class AppointmentResponse(AppointmentBase):
         from_attributes = True
 
 
-# ==========================================================
 # RISK HISTORY SCHEMAS
-# ==========================================================
 class RiskHistoryBase(BaseModel):
     risk_level: str
     high_risk_probability: float
