@@ -117,7 +117,7 @@ export function PatientDashboard({ onLogout, user }: PatientDashboardProps) {
     fetchPatientData();
   }, []);
 
-  // Auto-fill static data from backend (and normalize Yes/No)
+  // Auto-fill static data from backend
   useEffect(() => {
     if (patientData) {
       const normalize = (val: string | null | undefined) => {
