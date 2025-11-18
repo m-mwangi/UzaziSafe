@@ -1,10 +1,8 @@
-# backend/tests/conftest.py
 import os
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-# Force SQLite for testing
 os.environ["DATABASE_URL"] = "sqlite:///./test.db"
 
 from backend.database import Base, engine, SessionLocal, get_db
@@ -13,9 +11,7 @@ from backend import models
 from backend.utils import create_access_token
 
 
-# ---------------------------------------------------------
-# 1️⃣ Test database setup (session-wide)
-# ---------------------------------------------------------
+# Test database setup
 @pytest.fixture(scope="session", autouse=True)
 def setup_database():
     Base.metadata.drop_all(bind=engine)
@@ -24,9 +20,7 @@ def setup_database():
     Base.metadata.drop_all(bind=engine)
 
 
-# ---------------------------------------------------------
-# 2️⃣ Per-test DB session
-# ---------------------------------------------------------
+# Per-test DB session
 @pytest.fixture
 def db_session() -> Session:
     session = SessionLocal()
@@ -37,9 +31,7 @@ def db_session() -> Session:
         session.close()
 
 
-# ---------------------------------------------------------
-# 3️⃣ Override FastAPI DB dependency
-# ---------------------------------------------------------
+# Override FastAPI DB dependency
 def override_get_db():
     db = SessionLocal()
     try:
@@ -51,17 +43,12 @@ def override_get_db():
 app.dependency_overrides[get_db] = override_get_db
 
 
-# ---------------------------------------------------------
-# 4️⃣ FastAPI test client
-# ---------------------------------------------------------
+# FastAPI test client
 @pytest.fixture
 def client():
     return TestClient(app)
 
-
-# ---------------------------------------------------------
-# 5️⃣ Auth helper: creates user + returns header
-# ---------------------------------------------------------
+# Auth helper: creates user + returns header
 @pytest.fixture
 def auth_header_for_user(db_session):
     """
