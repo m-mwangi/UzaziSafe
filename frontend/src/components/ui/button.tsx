@@ -2,8 +2,8 @@ import * as React from "react";
 import { cn } from "../../lib/utils";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "outline" | "ghost"; // added ghost
-  size?: "sm" | "md" | "lg"; // added size prop
+  variant?: "default" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg"; 
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -21,7 +21,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         "bg-transparent text-indigo-700 hover:bg-indigo-100 focus:ring-indigo-500",
     };
 
-    // size control (used by some components like “size='sm'”)
+    // size control
     const sizes = {
       sm: "text-sm px-3 py-1.5",
       md: "text-sm px-4 py-2",
