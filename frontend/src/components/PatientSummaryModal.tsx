@@ -99,15 +99,15 @@ export const PatientSummaryModal: React.FC<{
   const getDoctorInsight = (feature: string, value: number) => {
     switch (feature) {
       case "Systolic BP":
-        if (value > 140)
+        if (value > 135)
           return { text: "High BP - monitor for preeclampsia.", level: "attention" };
         if (value < 90)
           return { text: "Low BP - assess hydration and anemia.", level: "monitor" };
         return { text: "Stable systolic pressure.", level: "normal" };
       case "Diastolic BP":
-        if (value > 90)
+        if (value > 85)
           return { text: "Raised diastolic BP - monitor closely.", level: "attention" };
-        if (value < 60)
+        if (value < 55)
           return { text: "Low diastolic - ensure hydration.", level: "monitor" };
         return { text: "Diastolic pressure normal.", level: "normal" };
       case "Blood Sugar":
@@ -116,24 +116,24 @@ export const PatientSummaryModal: React.FC<{
             text: "Elevated sugar - manage gestational diabetes risk.",
             level: "attention",
           };
-        if (value < 3.5)
+        if (value < 3.2)
           return { text: "Low sugar - possible hypoglycemia.", level: "monitor" };
         return { text: "Blood sugar within range.", level: "normal" };
       case "Body Temperature":
         if (value > 99.5)
           return { text: "Slight fever - rule out infection.", level: "attention" };
-        if (value < 97)
+        if (value < 96.5)
           return { text: "Below normal - monitor.", level: "monitor" };
         return { text: "Temperature normal.", level: "normal" };
       case "Heart Rate":
-        if (value > 100)
+        if (value > 110)
           return {
             text: "Tachycardia - check for anxiety or fever.",
             level: "attention",
           };
         if (value < 60)
           return {
-            text: "Low HR — evaluate cardiovascular status.",
+            text: "Low HR - evaluate cardiovascular status.",
             level: "monitor",
           };
         return { text: "Heart rate normal.", level: "normal" };
