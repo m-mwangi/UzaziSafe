@@ -6,7 +6,7 @@ import { ProviderSignup } from "./components/ProviderSignup";
 import { PatientDashboard } from "./components/PatientDashboard";
 import { ProviderDashboard } from "./components/ProviderDashboard";
 import { Tooltip } from "./components/ui/tooltip";
-import { PrivacyPolicy } from "./components/PrivacyPolicy"; // ✅ NEW IMPORT
+import { PrivacyPolicy } from "./components/PrivacyPolicy";
 
 function App() {
   const [page, setPage] = useState<
@@ -15,7 +15,7 @@ function App() {
     | "createProvider"
     | "patient"
     | "provider"
-    | "privacyPolicy" // ✅ ADDED
+    | "privacyPolicy"
   >("landing");
 
   const [user, setUser] = useState<any>(null);
@@ -37,14 +37,14 @@ function App() {
       | "provider"
       | "createPatient"
       | "createProvider"
-      | "privacyPolicy" // ✅ ADDED
+      | "privacyPolicy" 
   ) => {
     if (type === "createPatient") {
       setPage("createPatient");
     } else if (type === "createProvider") {
       setPage("createProvider");
     } else if (type === "privacyPolicy") {
-      setPage("privacyPolicy"); // ✅ ADDED
+      setPage("privacyPolicy");
     } else if (type === "patient" || type === "provider") {
       const storedUser = localStorage.getItem("user");
       if (storedUser) {
@@ -80,7 +80,7 @@ function App() {
         )}
 
         {page === "privacyPolicy" && (
-          <PrivacyPolicy onBack={() => setPage("landing")} /> // ✅ ADDED
+          <PrivacyPolicy onBack={() => setPage("landing")} />
         )}
 
         {page === "patient" && (
