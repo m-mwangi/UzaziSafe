@@ -1,4 +1,3 @@
-# backend/tests/test_auth.py
 from backend import models
 
 

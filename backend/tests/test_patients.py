@@ -1,4 +1,3 @@
-# backend/tests/test_patients.py
 from datetime import datetime, timedelta
 from backend import models
 

@@ -1,4 +1,3 @@
-# main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
@@ -8,27 +7,21 @@ from backend.routes import patients, appointments, auth, provider, risk_assess
 import joblib
 import shap
 
-# ==========================================================
 # Create Database Tables
-# ==========================================================
 models.Base.metadata.create_all(bind=engine)
 
-# ==========================================================
 # Initialize FastAPI app
-# ==========================================================
 app = FastAPI(
     title="UzaziSafe API",
     description="Backend API for the UzaziSafe maternal health system",
     version="1.0.0",
 )
 
-# ==========================================================
 # CORS Settings
-# ==========================================================
 origins = [
     "http://localhost:5173",  # Vite (local)
     "http://localhost:3000",  # CRA (local)
-    "https://uzazisafe.onrender.com",           # ✅ your current frontend domain (from screenshot)
+    "https://uzazisafe.onrender.com",        
 ]
 
 app.add_middleware(
@@ -39,9 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ==========================================================
-# Load Machine Learning Model (optional)
-# ==========================================================
+# Load Machine Learning Model
 try:
     model = joblib.load("backend/xgboost_model.pkl")
     explainer = shap.TreeExplainer(model)
@@ -49,12 +40,10 @@ try:
 except Exception as e:
     print(" Model could not be loaded:", e)
 
-# ==========================================================
 # Root endpoint
-# ==========================================================
 @app.get("/")
 def home():
-    return {"message": "UzaziSafe Backend is running successfully 🚀"}
+    return {"message": "UzaziSafe Backend is running successfully!"}
 
 # ==========================================================
 # Include Routers
@@ -65,9 +54,7 @@ app.include_router(appointments.router)
 app.include_router(provider.router)
 app.include_router(risk_assess.router)
 
-# ==========================================================
 # Add Bearer Token Authorization in Swagger
-# ==========================================================
 def custom_openapi():
     """
     Ensures Swagger UI shows and applies Bearer token globally

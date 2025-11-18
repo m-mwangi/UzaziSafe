@@ -1,4 +1,3 @@
-# routes/risk_assess.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from datetime import datetime
@@ -11,9 +10,7 @@ import json
 router = APIRouter(prefix="/assess-risk", tags=["Risk Assessment"])
 
 
-# ==========================================================
-# ✅ RUN ASSESSMENT + SAVE RESULT
-# ==========================================================
+# RUN ASSESSMENT + SAVE RESULT
 @router.post("/")
 def assess_and_store_risk(
     data: dict,
@@ -24,18 +21,18 @@ def assess_and_store_risk(
     Calls ML model → saves risk result → updates patient record → returns result.
     """
 
-    # ✅ Ensure it's a patient user
+    # Ensure it's a patient user
     if not current_user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     if current_user.is_provider:
         raise HTTPException(status_code=403, detail="Providers cannot assess patient risk")
 
-    # ✅ Find the patient's record using user_id
+    # Find the patient's record using user_id
     patient = db.query(models.Patient).filter(models.Patient.user_id == current_user.id).first()
     if not patient:
         raise HTTPException(status_code=404, detail="Patient not found")
 
-    # ✅ Save static details ONCE if not already set
+    # Save static details ONCE if not already set
     updates = False
     if patient.age is None and "Age" in data and data["Age"] is not None:
         patient.age = data["Age"]
@@ -57,17 +54,17 @@ def assess_and_store_risk(
         db.commit()
         db.refresh(patient)
 
-    # ✅ Run ML model prediction
+    # Run ML model prediction
     result = assess_risk(data)
 
-    # ✅ Safely get vital values (avoid None or wrong key)
+    # Safely get vital values (avoid None or wrong key)
     systolic = float(data.get("Systolic_BP") or 0)
     diastolic = float(data.get("Diastolic_BP") or 0)
     sugar = float(data.get("Blood_Sugar") or 0)
     temp = float(data.get("Body_Temp") or 0)
     heart = float(data.get("Heart_Rate") or 0)
 
-    # ✅ Save to RiskHistory (now including vitals)
+    # Save to RiskHistory (now including vitals)
     new_risk = models.RiskHistory(
         patient_id=patient.id,
         risk_level=result.get("Prediction"),
@@ -83,7 +80,7 @@ def assess_and_store_risk(
 
     db.add(new_risk)
 
-    # ✅ Update patient summary record
+    # Update patient summary record
     patient.risk_level = result.get("Prediction")
     patient.last_assessment_date = datetime.utcnow()
 
@@ -105,9 +102,7 @@ def assess_and_store_risk(
     }
 
 
-# ==========================================================
-# ✅ GET ALL RISK ASSESSMENTS FOR A PATIENT
-# ==========================================================
+# GET ALL RISK ASSESSMENTS FOR A PATIENT
 @router.get("/patient/{patient_id}", tags=["Risk Assessment"])
 def get_patient_assessments(patient_id: int, db: Session = Depends(get_db)):
     """

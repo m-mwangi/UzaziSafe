@@ -78,7 +78,6 @@ export function LandingPage({ onLogin }: LandingPageProps) {
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("user", JSON.stringify(data));
 
-      // App.tsx expects "user"
       onLogin(data.is_provider ? "provider" : "patient");
     } catch (error: any) {
       setPatientError(

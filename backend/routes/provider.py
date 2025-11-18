@@ -8,9 +8,7 @@ from ..utils import get_current_user
 
 router = APIRouter(prefix="/providers", tags=["Providers"])
 
-# ==========================================================
-# ✅ GET PROVIDER DASHBOARD OVERVIEW (includes provider_id)
-# ==========================================================
+# GET PROVIDER DASHBOARD OVERVIEW
 @router.get("/me", response_model=schemas.ProviderDashboardResponse)
 def get_logged_in_provider(
     current_user: models.User = Depends(get_current_user),
@@ -41,9 +39,9 @@ def get_logged_in_provider(
         .count()
     )
 
-    # ✅ Return full provider overview
+    # Return full provider overview
     return {
-        "provider_id": current_user.id,  # ✅ critical for frontend fetches
+        "provider_id": current_user.id, 
         "provider_name": current_user.full_name,
         "email": current_user.email,
         "hospital_name": current_user.hospital_name,
@@ -54,9 +52,7 @@ def get_logged_in_provider(
     }
 
 
-# ==========================================================
-# ✅ GET LIST OF PATIENTS ASSIGNED TO A PROVIDER (BY ID)
-# ==========================================================
+# GET LIST OF PATIENTS ASSIGNED TO A PROVIDER (BY ID)
 @router.get("/{provider_id}/patients", response_model=list[schemas.PatientResponse])
 def get_provider_patients(provider_id: int, db: Session = Depends(get_db)):
     provider = db.query(models.User).filter(
@@ -73,9 +69,7 @@ def get_provider_patients(provider_id: int, db: Session = Depends(get_db)):
     return patients
 
 
-# ==========================================================
-# ✅ GET ALL APPOINTMENTS FOR A PROVIDER (BY ID)
-# ==========================================================
+# GET ALL APPOINTMENTS FOR A PROVIDER (BY ID)
 @router.get("/{provider_id}/appointments", response_model=list[schemas.AppointmentResponse])
 def get_provider_appointments(provider_id: int, db: Session = Depends(get_db)):
     provider = db.query(models.User).filter(
@@ -108,9 +102,7 @@ def get_provider_appointments(provider_id: int, db: Session = Depends(get_db)):
     return results
 
 
-# ==========================================================
-# ✅ GET WEEKLY RISK SUMMARY FOR ALL PATIENTS OF A PROVIDER
-# ==========================================================
+# GET WEEKLY RISK SUMMARY FOR ALL PATIENTS OF A PROVIDER
 @router.get("/{provider_id}/risk-summary")
 def get_provider_risk_summary(provider_id: int, db: Session = Depends(get_db)):
     provider = db.query(models.User).filter(
@@ -121,7 +113,7 @@ def get_provider_risk_summary(provider_id: int, db: Session = Depends(get_db)):
     if not provider:
         raise HTTPException(status_code=404, detail="Provider not found")
 
-    # ✅ Get all patients for this provider
+    # Get all patients for this provider
     patients = db.query(models.Patient).filter(
         models.Patient.provider_id == provider.id
     ).all()
@@ -154,13 +146,13 @@ def get_provider_risk_summary(provider_id: int, db: Session = Depends(get_db)):
             "weekly": []
         }
 
-    # === SUMMARY STATS ===
+    # SUMMARY STATS
     total_assessments = len(history_entries)
     high_risk_count = sum(1 for h in history_entries if h.risk_level == "High Risk")
     low_risk_count = sum(1 for h in history_entries if h.risk_level == "Low Risk")
     avg_risk = sum((h.high_risk_probability or 0) for h in history_entries) / total_assessments
 
-    # === WEEKLY TREND DATA ===
+    # WEEKLY TREND DATA
     daily_data = {}
     for h in history_entries:
         date_key = h.created_at.date().isoformat()
@@ -186,9 +178,7 @@ def get_provider_risk_summary(provider_id: int, db: Session = Depends(get_db)):
         "weekly": weekly_data
     }
 
-# ==========================================================
-# ✅ GET PROVIDER RECENT ACTIVITY (Dashboard Feed)
-# ==========================================================
+# GET PROVIDER RECENT ACTIVITY (Dashboard Feed)
 @router.get("/{provider_id}/activity")
 def get_provider_recent_activity(provider_id: int, db: Session = Depends(get_db)):
     provider = db.query(models.User).filter(
@@ -202,7 +192,7 @@ def get_provider_recent_activity(provider_id: int, db: Session = Depends(get_db)
     activities = []
     seven_days_ago = datetime.utcnow() - timedelta(days=7)
 
-    # 🩺 1️⃣ Recent Patients Added or Updated
+    # Recent Patients Added or Updated
     recent_patients = (
         db.query(models.Patient)
         .filter(models.Patient.provider_id == provider.id)
@@ -221,7 +211,7 @@ def get_provider_recent_activity(provider_id: int, db: Session = Depends(get_db)
             "time": p.created_at.strftime("%b %d, %Y, %I:%M %p") if p.created_at else ""
         })
 
-    # ⚠️ 2️⃣ Risk Updates
+    # Risk Updates
     recent_risks = (
         db.query(models.RiskHistory)
         .join(models.Patient)
@@ -241,7 +231,7 @@ def get_provider_recent_activity(provider_id: int, db: Session = Depends(get_db)
             "time": r.created_at.strftime("%b %d, %Y, %I:%M %p") if r.created_at else ""
         })
 
-    # 📅 3️⃣ Appointment Events (Created or Updated)
+    # Appointment Events (Created or Updated)
     recent_appointments = (
         db.query(models.Appointment)
         .filter(models.Appointment.provider_id == provider.id)
@@ -269,7 +259,7 @@ def get_provider_recent_activity(provider_id: int, db: Session = Depends(get_db)
             "time": event_time.strftime("%b %d, %Y, %I:%M %p") if event_time else ""
         })
 
-    # 🔄 Sort all events by time (newest first)
+    # Sort all events by time (newest first)
     def sort_key(a):
         try:
             return datetime.strptime(a["time"], "%b %d, %Y, %I:%M %p")
@@ -278,13 +268,11 @@ def get_provider_recent_activity(provider_id: int, db: Session = Depends(get_db)
 
     activities.sort(key=sort_key, reverse=True)
 
-    # ✂️ Keep the latest 15 only
+    # Keep the latest 15 only
     return activities[:5]
 
 
-# ==========================================================
-# ✅ DISCHARGE (DELETE) PATIENT FROM PROVIDER’S CARE
-# ==========================================================
+# DISCHARGE (DELETE) PATIENT FROM PROVIDER’S CARE
 @router.delete("/{provider_id}/patients/{patient_id}", status_code=204)
 def discharge_patient(
     provider_id: int,

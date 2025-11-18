@@ -4,7 +4,7 @@ import random
 PATIENT_EMAIL = "adrian@gmail.com"
 PATIENT_PASSWORD = "1234"
 PATIENT_NAME = "adrian"
-HOSPITAL = "Meidcare Clinic"
+HOSPITAL = "Medicare Clinic"
 
 
 class HealthcareUser(HttpUser):
@@ -12,13 +12,11 @@ class HealthcareUser(HttpUser):
 
     def on_start(self):
         """Ensure test user exists, then log in and store JWT token."""
-        # First try logging in
         response = self.client.post(
             "/auth/login",
             data={"email": PATIENT_EMAIL, "password": PATIENT_PASSWORD}
         )
 
-        # If login fails → try creating the test user
         if response.status_code != 200:
             print("User missing — creating test patient...")
             signup = self.client.post(
@@ -42,7 +40,7 @@ class HealthcareUser(HttpUser):
             token = response.json().get("access_token")
             self.headers = {"Authorization": f"Bearer {token}"}
         except:
-            print("❌ Login failed, response was not JSON:", response.text)
+            print("Login failed, response was not JSON:", response.text)
             self.headers = {}
 
     @task
