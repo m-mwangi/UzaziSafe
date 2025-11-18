@@ -1,4 +1,3 @@
-# backend/tests/test_risk_assess.py
 from datetime import datetime
 from backend import models
 import backend.routes.risk_assess as risk_routes
@@ -37,7 +36,7 @@ def test_post_assess_risk__and_get_patient_history(client, db_session, auth_head
         "Systolic_BP": 120,
         "Diastolic_BP": 80,
         "Blood_Sugar": 5.1,
-        "Body_Temp": 36.5,
+        "Body_Temp": 98.5,
         "Heart_Rate": 80,
     }
 
@@ -64,7 +63,7 @@ def test_post_assess_risk__forbidden_for_provider(client, auth_header_for_user):
         "Systolic_BP": 120,
         "Diastolic_BP": 80,
         "Blood_Sugar": 5.1,
-        "Body_Temp": 36.5,
+        "Body_Temp": 98.5,
         "Heart_Rate": 80,
     }
 
@@ -78,7 +77,7 @@ def test_post_assess_risk__unauthenticated(client):
         "Systolic_BP": 120,
         "Diastolic_BP": 80,
         "Blood_Sugar": 5.1,
-        "Body_Temp": 36.5,
+        "Body_Temp": 98.5,
         "Heart_Rate": 80,
     }
     assert client.post("/assess-risk/", json=body).status_code == 403
