@@ -1,4 +1,3 @@
-# routes/auth.py
 from fastapi import APIRouter, Depends, HTTPException, Form, Request, status
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -14,16 +13,12 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# ==========================================================
 # LOGIN BODY MODEL
-# ==========================================================
 class LoginRequest(BaseModel):
     email: str
     password: str
 
-# ==========================================================
 # PROVIDER SIGNUP
-# ==========================================================
 @router.post("/signup/provider", response_model=schemas.UserResponse)
 def signup_provider(
     full_name: str = Form(...),
@@ -53,9 +48,7 @@ def signup_provider(
     db.refresh(new_user)
     return new_user
 
-# ==========================================================
 # PATIENT SIGNUP
-# ==========================================================
 @router.post("/signup/patient", response_model=schemas.UserResponse)
 def signup_patient(
     full_name: str = Form(...),
@@ -108,9 +101,7 @@ def signup_patient(
         "created_at": new_user.created_at,
     }
 
-# ==========================================================
 # LOGIN
-# ==========================================================
 @router.post("/login")
 async def login(
     request: Request,
