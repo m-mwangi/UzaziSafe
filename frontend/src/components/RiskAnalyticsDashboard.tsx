@@ -46,10 +46,9 @@ interface ChartPoint {
   prediction?: string;
 }
 
-// CRA uses process.env.REACT_APP_*
 const API_URL = process.env.REACT_APP_API_URL || "https://uzazisafe-backend.onrender.com";
 
-// Always return clean headers object
+// Always return a clean headers object
 const authHeaders = (): Record<string, string> => {
   const token = localStorage.getItem("token");
   const headers: Record<string, string> = {
@@ -282,7 +281,7 @@ setChartData(chart);
     return null;
   };
 
-  // ====== RENDER ======
+  // RENDER
   if (loading) {
     return <p className="text-gray-500 italic">Loading risk analytics...</p>;
   }
