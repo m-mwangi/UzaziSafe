@@ -30,7 +30,6 @@ import {
 // CRA uses process.env.REACT_APP_*
 const API_URL = process.env.REACT_APP_API_URL || "https://uzazisafe-backend.onrender.com";
 
-// ✅ Always return clean headers object
 const authHeaders = (): Record<string, string> => {
   const token = localStorage.getItem("token");
   const headers: Record<string, string> = {
@@ -61,7 +60,7 @@ export function ProviderAnalytics() {
     { icon: any; title: string; desc: string; color: string }[]
   >([]);
 
-  const COLORS = ["#4ade80", "#f87171"]; // green, red
+  const COLORS = ["#4ade80", "#f87171"]; 
 
   // Fetch real data from backend
   useEffect(() => {
@@ -134,7 +133,6 @@ export function ProviderAnalytics() {
 
     const riskChange = avgRecent - avgPrev;
 
-    // === No data case ===
     if (summary.total === 0) {
       newInsights.push({
         icon: <Activity className="text-gray-400 w-5 h-5" />,
@@ -146,7 +144,7 @@ export function ProviderAnalytics() {
       return;
     }
 
-    // === Trend analysis ===
+    // Trend analysis
     if (riskChange > 0.05) {
       newInsights.push({
         icon: <TrendingUp className="text-pink-500 w-5 h-5" />,
@@ -176,7 +174,7 @@ export function ProviderAnalytics() {
       });
     }
 
-    // === Risk distribution ===
+    // Risk distribution
     const highRatio = summary.high / (summary.total || 1);
     if (highRatio > 0.6) {
       newInsights.push({
@@ -205,7 +203,7 @@ export function ProviderAnalytics() {
       });
     }
 
-    // === Overall high average risk ===
+    // Overall high average risk
     if (summary.avgRisk >= 0.7) {
       newInsights.push({
         icon: <AlertTriangle className="text-yellow-500 w-5 h-5" />,
@@ -220,7 +218,7 @@ export function ProviderAnalytics() {
     setInsights(newInsights);
   }, [summary, weeklyChart]);
 
-  // ===== RENDER =====
+  // RENDER
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
       <h3 className="text-xl font-semibold text-indigo-700 mb-6">
@@ -263,7 +261,7 @@ export function ProviderAnalytics() {
         </Card>
       </div>
 
-      {/* === Charts === */}
+      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Pie Chart */}
         <Card>
@@ -379,7 +377,7 @@ export function ProviderAnalytics() {
         </Card>
       </div>
 
-      {/* === Insights === */}
+      {/* Insights */}
       <div className="mt-8">
         <h3 className="text-lg font-semibold text-indigo-700 mb-4">
           Key Insights & Recommendations
