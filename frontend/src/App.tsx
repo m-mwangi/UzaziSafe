@@ -6,11 +6,18 @@ import { ProviderSignup } from "./components/ProviderSignup";
 import { PatientDashboard } from "./components/PatientDashboard";
 import { ProviderDashboard } from "./components/ProviderDashboard";
 import { Tooltip } from "./components/ui/tooltip";
+import { PrivacyPolicy } from "./components/PrivacyPolicy"; // ✅ NEW IMPORT
 
 function App() {
   const [page, setPage] = useState<
-    "landing" | "createPatient" | "createProvider" | "patient" | "provider"
+    | "landing"
+    | "createPatient"
+    | "createProvider"
+    | "patient"
+    | "provider"
+    | "privacyPolicy" // ✅ ADDED
   >("landing");
+
   const [user, setUser] = useState<any>(null);
 
   // Load session on startup
@@ -25,12 +32,19 @@ function App() {
 
   // Handle login & navigation
   const handleLogin = (
-    type: "patient" | "provider" | "createPatient" | "createProvider"
+    type:
+      | "patient"
+      | "provider"
+      | "createPatient"
+      | "createProvider"
+      | "privacyPolicy" // ✅ ADDED
   ) => {
     if (type === "createPatient") {
       setPage("createPatient");
     } else if (type === "createProvider") {
       setPage("createProvider");
+    } else if (type === "privacyPolicy") {
+      setPage("privacyPolicy"); // ✅ ADDED
     } else if (type === "patient" || type === "provider") {
       const storedUser = localStorage.getItem("user");
       if (storedUser) {
@@ -56,15 +70,23 @@ function App() {
     <Tooltip.Provider delayDuration={150} skipDelayDuration={300}>
       <BrowserRouter>
         {page === "landing" && <LandingPage onLogin={handleLogin} />}
+
         {page === "createPatient" && (
           <PatientSignup onBack={() => setPage("landing")} />
         )}
+
         {page === "createProvider" && (
           <ProviderSignup onBack={() => setPage("landing")} />
         )}
+
+        {page === "privacyPolicy" && (
+          <PrivacyPolicy onBack={() => setPage("landing")} /> // ✅ ADDED
+        )}
+
         {page === "patient" && (
           <PatientDashboard onLogout={handleLogout} user={user} />
         )}
+
         {page === "provider" && (
           <ProviderDashboard onLogout={handleLogout} />
         )}

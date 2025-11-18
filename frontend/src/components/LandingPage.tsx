@@ -15,7 +15,12 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs";
 
 interface LandingPageProps {
   onLogin: (
-    type: "patient" | "provider" | "createPatient" | "createProvider"
+    type:
+      | "patient"
+      | "provider"
+      | "createPatient"
+      | "createProvider"
+      | "privacyPolicy"
   ) => void;
 }
 
@@ -38,14 +43,17 @@ export function LandingPage({ onLogin }: LandingPageProps) {
     setPatientError("");
 
     try {
-      const response = await fetch("https://uzazisafe-backend.onrender.com/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: patientEmail,
-          password: patientPassword,
-        }),
-      });
+      const response = await fetch(
+        "https://uzazisafe-backend.onrender.com/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: patientEmail,
+            password: patientPassword,
+          }),
+        }
+      );
 
       if (!response.ok) {
         let errMsg = "Login failed - please check your credentials.";
@@ -85,14 +93,17 @@ export function LandingPage({ onLogin }: LandingPageProps) {
     setProviderError("");
 
     try {
-      const response = await fetch("https://uzazisafe-backend.onrender.com/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: providerEmail,
-          password: providerPassword,
-        }),
-      });
+      const response = await fetch(
+        "https://uzazisafe-backend.onrender.com/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: providerEmail,
+            password: providerPassword,
+          }),
+        }
+      );
 
       if (!response.ok) {
         let errMsg = "Login failed - please check your credentials.";
@@ -337,7 +348,9 @@ export function LandingPage({ onLogin }: LandingPageProps) {
                           />
                         </div>
                         {providerError && (
-                          <p className="text-red-600 text-sm">{providerError}</p>
+                          <p className="text-red-600 text-sm">
+                            {providerError}
+                          </p>
                         )}
                         <Button
                           type="submit"
@@ -368,8 +381,16 @@ export function LandingPage({ onLogin }: LandingPageProps) {
         </div>
       </main>
 
-      <footer className="bg-gradient-to-r from-blue-700 to-indigo-600 text-white py-6 text-center mt-12">
-        <p className="text-sm">© 2025 UzaziSafe. All rights reserved.</p>
+      <footer className="bg-gradient-to-r from-blue-700 to-indigo-600 text-white py-6 mt-12">
+        <div className="container mx-auto text-center space-y-3">
+          <p className="text-sm">© 2025 UzaziSafe. All rights reserved.</p>
+          <button
+            onClick={() => onLogin("privacyPolicy")}
+            className="text-sm underline text-blue-100 hover:text-white transition"
+          >
+            Privacy Policy
+          </button>
+        </div>
       </footer>
     </div>
   );
