@@ -1,4 +1,3 @@
-# routes/patients.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
@@ -10,9 +9,7 @@ from ..utils import get_current_user
 router = APIRouter(prefix="/patients", tags=["Patients"])
 
 
-# ==========================================================
-# ✅ Patient Dashboard (Logged-in Patient)
-# ==========================================================
+# Patient Dashboard (Logged-in Patient)
 @router.get("/me", response_model=schemas.PatientDashboardResponse)
 def get_logged_in_patient(
     current_user: models.User = Depends(get_current_user),
@@ -59,7 +56,7 @@ def get_logged_in_patient(
     next_appt_str = next_appt.date.isoformat() if next_appt else None
 
     return {
-        "patient_id": patient.id,   # ✅ new
+        "patient_id": patient.id,  
         "full_name": patient.full_name,
         "email": current_user.email,
         "hospital_name": patient.hospital_name,
@@ -75,9 +72,7 @@ def get_logged_in_patient(
     }
 
 
-# ==========================================================
-# ✅ Update Static Info (for Patients)
-# ==========================================================
+# Update Static Info (for Patients)
 @router.patch("/update-static-info")
 def update_static_info(
     data: dict,
@@ -102,9 +97,7 @@ def update_static_info(
     return {"message": "Patient static info updated", "patient_id": patient.id}
 
 
-# ==========================================================
-# ✅ NEW: Get Latest Risk Record (For Provider View)
-# ==========================================================
+# Get Latest Risk Record (For Provider View)
 @router.get("/{patient_id}/latest-risk")
 def get_latest_patient_risk(patient_id: int, db: Session = Depends(get_db)):
     record = (
@@ -116,7 +109,7 @@ def get_latest_patient_risk(patient_id: int, db: Session = Depends(get_db)):
     if not record:
         raise HTTPException(status_code=404, detail="No risk record found")
 
-    # ✅ include patient relationship if defined
+    # include patient relationship if defined
     patient = db.query(models.Patient).filter(models.Patient.id == patient_id).first()
 
     try:
@@ -137,7 +130,6 @@ def get_latest_patient_risk(patient_id: int, db: Session = Depends(get_db)):
             "bodyTemp": record.body_temp,
             "heartRate": record.heart_rate,
         },
-        # ✅ new block: patient info
         "patient_info": {
             "age": patient.age if patient else None,
             "gestational_diabetes": patient.gestational_diabetes if patient else None,
