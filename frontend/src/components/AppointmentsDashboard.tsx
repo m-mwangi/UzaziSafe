@@ -245,7 +245,7 @@ export function AppointmentsDashboard({
                       </h3>
                       <p className="text-gray-700 text-sm">
                         <span className="font-medium text-gray-900"></span>{" "}
-                        {a.provider_name || "—"}
+                        {a.provider_name || "-"}
                       </p>
                     </div>
 
@@ -287,13 +287,13 @@ export function AppointmentsDashboard({
                             onClick={() => saveReschedule(a.id)}
                             className="bg-green-600 hover:bg-green-700 text-white text-xs px-4 py-2 rounded-lg"
                           >
-                            💾 Save
+                            Save
                           </Button>
                           <Button
                             onClick={() => setReschedulingId(null)}
                             className="bg-gray-400 hover:bg-gray-500 text-white text-xs px-4 py-2 rounded-lg"
                           >
-                            ✖ Cancel
+                            Cancel
                           </Button>
                         </div>
                       </div>
@@ -354,7 +354,7 @@ export function AppointmentsDashboard({
                     <p className="text-sm text-gray-600 mt-3">
                       <strong>Date:</strong> {a.date} <br />
                       <strong>Time:</strong> {a.time} <br />
-                      <strong>Facility:</strong> {a.hospital_name || "—"}
+                      <strong>Facility:</strong> {a.hospital_name || "-"}
                     </p>
                   </Card>
                 ))}
