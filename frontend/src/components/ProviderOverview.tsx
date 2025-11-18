@@ -18,10 +18,6 @@ function ProviderOverview({ provider }: { provider: any }) {
   const [todaysAppointments, setTodaysAppointments] = useState<any[]>([]);
   const [activities, setActivities] = useState<any[]>([]);
 
-  
-  // ------------------------------------------------
-  // ⭐ FIX ADDED HERE — Time Parsing Helper
-  // ------------------------------------------------
   const formatLocalTime = (timeString: string) => {
     if (!timeString) return "Unknown time";
 
@@ -86,7 +82,7 @@ function ProviderOverview({ provider }: { provider: any }) {
         const data = await res2.json();
 
         const today = new Date();
-        const todayStr = today.toLocaleDateString("en-CA"); // YYYY-MM-DD
+        const todayStr = today.toLocaleDateString("en-CA"); 
 
         const todays = data.filter((a: any) => {
           if (a.status && a.status !== "Scheduled") return false;
