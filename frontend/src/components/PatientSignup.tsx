@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { ArrowLeft } from "lucide-react";
 
-// Shared hospital list (same as in ProviderSignup)
+// Shared hospital list
 const facilities = [
   "Aga Khan Hospital",
   "Nairobi Women's Hospital",
@@ -39,7 +39,6 @@ export function PatientSignup({ onBack }: PatientSignupProps) {
     setSuccess("");
   };
 
-  // Fixed handleSubmit with better error handling
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -70,7 +69,6 @@ export function PatientSignup({ onBack }: PatientSignupProps) {
       if (!response.ok) {
         const errorData = await response.json();
 
-        // 👇 handle both string and array errors gracefully
         const message =
           typeof errorData.detail === "string"
             ? errorData.detail
